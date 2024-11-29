@@ -28,7 +28,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link d-flex">
+              <a href="{{url_for('sso')}}" class="nav-link d-flex">
                 <span>Đăng nhập</span>
               </a>
             </li>
@@ -42,7 +42,7 @@
             <input type="search" placeholder="Tìm kiếm" aria-label="Search">
           </div>
           <div class="user-controls">
-            <button class="login-button">
+            <button class="login-button" onclick="window.location.href='{{url_for('sso')}}'">
               <span>Đăng nhập</span>
               <i class="fa-solid fa-arrow-right"></i>
             </button>
@@ -61,7 +61,7 @@
             <h2 class="content-heading">GIỚI THIỆU VỀ<br>DỊCH VỤ IN BÁCH KHOA</h2>
             <p class="content-description">Bach khoa Smart Printing là dịch vụ in ấn tài liệu dành riêng cho sinh viên trường Đại học Bách khoa - ĐHQG-HCM.</p>
             <p class="content-description">Đăng nhập ngay để sử dụng dịch vụ này.</p>
-            <a href="" class="cta-button">ĐĂNG NHẬP</a>
+            <a href="{{url_for('sso')}}" class="cta-button">ĐĂNG NHẬP</a>
           </div>
           <img src="../image/printer.jpg" alt="Printing Service Illustration" class="content-image">
         </section>

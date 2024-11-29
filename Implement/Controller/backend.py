@@ -1,15 +1,21 @@
 from flask import *
-
+from config import *
 # Create the Flask app with custom static and template paths
 app = Flask(
     __name__,
     static_folder='../View',         # Static files root directory
     template_folder='../View/layout'  # Templates directory
 )
+app.secret_key = 'your_secret_key'
+
 
 # Routes for HTML templates
 @app.route('/')
 def home():
+    if 'user_logged_in' in session and session['user_logged_in']:
+        # If logged in, redirect to the student home page
+        return redirect(url_for('student_home_page'))
+    # Otherwise, render the home page
     return render_template('home.html')
 
 @app.route('/info-summary')
@@ -20,8 +26,14 @@ def info_summary():
 def printing_history():
     return render_template('printing-history.html')
 
-@app.route('/role-selection')
+@app.route('/role-selection', methods=['GET', 'POST'])
 def role_selection():
+    role = request.args.get('role')  # Get the selected role from the query string
+    # print(role)
+    if request.method == 'POST' or role:
+        # Save the selected role in the session
+        session['role'] = role
+        return redirect(url_for('sso'))
     return render_template('role-selection.html')
 
 @app.route('/select-printer')
@@ -32,8 +44,33 @@ def select_printer():
 def select_printing_property():
     return render_template('select-printing-property.html')
 
-@app.route('/sso')
+@app.route('/login', methods=['GET', 'POST'])
 def sso():
+    if "role" not in session:
+        return redirect(url_for('role_selection'))
+    if request.method == 'POST':
+        # Validate user credentials (this is just an example)
+        print(request.form)
+        username = request.form['username']
+        password = request.form['password']
+        if session['role'] == 'User':
+            if username in STUDENT_ACCOUNT.keys(): 
+                if STUDENT_ACCOUNT[username] == password:
+                    session['user_logged_in'] = True
+                    return redirect(url_for('student_home_page'))
+                else:
+                    flash('Invalid credentials, please try again!', 'error')
+            else:
+                flash('Invalid credentials, please try again!', 'error')
+        elif session['role'] == 'Admin':
+            if username in MANAGER_ACCOUNT.keys(): 
+                if MANAGER_ACCOUNT[username] == password:
+                    session['user_logged_in'] = True
+                    return redirect(url_for('admin_dashboard'))
+                else:
+                    flash('Invalid credentials, please try again!', 'error')
+        else:
+            flash('Invalid credentials, please try again!', 'error')
     return render_template('sso.html')
 
 @app.route('/student-home-page')
@@ -63,6 +100,9 @@ def serve_js(filename):
 def serve_css(filename):
     return send_from_directory('../View/style', filename)
 
+@app.route('/admin-dashboard')
+def admin_dashboard():
+    return "NOT IMPLEMENTED YET"
 @app.route('/dev')
 def dev():
     # List of all routes with their paths and names

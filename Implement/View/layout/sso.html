@@ -46,23 +46,29 @@
         <main class="auth-content">
           <div class="auth-grid">
             <div class="form-column">
-              <form class="auth-form">
+              <form class="auth-form" method="POST" action="{{ url_for('sso') }}"">
                 <div class="input-group">
-                  <label for="username">Tên đăng nhập</label>
-                  <input type="text" id="username" class="form-input" required>
+                    <label for="username">Tên đăng nhập</label>
+                    <input type="text" id="username" name="username" class="form-input" required>
                 </div>
                 
                 <div class="input-group">
-                  <label for="password">Mật khẩu</label>
-                  <input type="password" id="password" class="form-input" required>
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" name="password" class="form-input" required>
                 </div>
-      
+            
                 <button type="submit" class="submit-button">Đăng nhập</button>
-                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div id="error-popup" class="popup">
+                            <p>{{ messages[0][1] }}</p>
+                        </div>
+                    {% endif %}
+                {% endwith %}
                 <a href="#" class="forgot-password">Quên mật khẩu?</a>
               </form>
             </div>
-      
+            
             <div class="image-column">
               <img src="../image/login.jpg" alt="Authentication illustration" class="auth-image">
             </div>
@@ -86,7 +92,17 @@
         </div>
       </footer>
     </div>
-
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          const popup = document.getElementById('error-popup');
+          if (popup) {
+              popup.style.display = 'block'; // Show the popup
+              setTimeout(function() {
+                  popup.style.display = 'none'; // Hide the popup after 3 seconds
+              }, 3000);
+          }
+      });
+  </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="../js/main.js"></script>
