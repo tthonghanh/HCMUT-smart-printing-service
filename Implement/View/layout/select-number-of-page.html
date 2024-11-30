@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="home-container">
+      <div class="layout-wrapper">
+        <aside class="sidebar">
+          <nav>
+            <div class="logo-container px-4 py-3 m-0">
+              <div class="logo-wrapper">
+                <div class="logo-badge">
+                  <img
+                    src="../image/hcmut.png"
+                    alt="SPSS Logo"
+                    class="logo-image"
+                  />
+                  <span class="logo-text">SPSS</span>
+                </div>
+              </div>
+            </div>
+            <ul class="nav-sidebar">
+              <li class="nav-item">
+                <a href="#" class="nav-link d-flex">
+                  <span>Trang chủ</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link d-flex">
+                  <span>Thông tin tài khoản</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link d-flex">
+                  <span>In tài liệu</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link active d-flex">
+                  <span>Mua trang in</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link d-flex">
+                  <span>Lịch sử in ấn</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link d-flex">
+                  <span>Lịch sử giao dịch</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link d-flex">
+                  <span>Đăng xuất</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+
+        <div class="main-content">
+          <header class="top-bar">
+            <div class="user-profile">
+              <img src="../image/avatar.svg" alt="User avatar" width="49" />
+              <div class="user-info">
+                <div class="user-name">Nguyễn Văn A</div>
+                <div class="user-role">KHMT</div>
+              </div>
+            </div>
+          </header>
+
+          <h1 class="page-title">Cổng thanh toán online</h1>
+
+          <div
+            class="payment-modal"
+            role="dialog"
+            aria-labelledby="payment-title"
+          >
+            <div class="modal-header">
+              <h2 id="payment-title" class="modal-title">Tuỳ chọn số lượng</h2>
+            </div>
+
+            <div class="payment-content">
+              <form class="payment-form">
+                <label for="quantity">Chọn số lượng giấy A4 cần mua:</label>
+                <div class="quantity-selector">
+                  <div class="minus" aria-label="Decrease quantity">
+                    <i class="fa-solid fa-square-minus"></i>
+                  </div>
+                  <input
+                    class="quantity-display"
+                    name="quantity"
+                    id="quantity"
+                    value="50"
+                  />
+                  <div class="plus" aria-label="Increase quantity">
+                    <i class="fa-solid fa-square-plus"></i>
+                  </div>
+                </div>
+                <p id="error-message" class="error-message"></p>
+                <label>Thành tiền:</label>
+                <div class="total-amount" aria-live="polite"></div>
+
+                <button type="submit" class="submit-button">Thanh toán</button>
+              </form>
+
+              <div class="instructions">
+                <div class="instructions-header">
+                  <i class="fa-solid fa-circle-info"></i>
+                  <h3>Hướng dẫn</h3>
+                </div>
+                <div class="instructions-content">
+                  <ol>
+                    <li>
+                      Sinh viên mua giấy in dựa trên định lượng số lượng giấy
+                      A4.
+                    </li>
+                    <li>1 tờ A4 = 0.5 tờ A3 = 2 tờ A5</li>
+                    <li>Giá 1 tờ A4: <b>200 VNĐ/tờ.</b></li>
+                    <li>Số lượng mua tối thiểu: 50 tờ.</li>
+                    <li>Số lượng mua tối đa: 2000 tờ.</li>
+                    <li>Số lượng mua phải là số chẵn.</li>
+                    <li>
+                      Liên hệ trung tâm trợ giúp nếu bạn gặp sự cố về việc thanh
+                      toán
+                      <a
+                        href="#"
+                        style="
+                          text-decoration: underline;
+                          color: rgba(0, 122, 255, 1);
+                        "
+                        >tại đây</a
+                      >.
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer layout-width">
+        <div class="footer-content">
+          <div>
+            Copyright 2024 © Nhóm 11 - Công nghệ Phần mềm - CC04 - CO3001 -
+            HK241
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>BKNetID@hcmut.edu.vn</span>
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>0912 345 678</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="../js/main.js"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
