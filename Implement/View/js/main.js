@@ -131,3 +131,80 @@ document.querySelectorAll(".printer-item").forEach((item) => {
     }
   })
 });
+
+// Select number of buying pages
+const minusButton = document.querySelector(".minus");
+const plusButton = document.querySelector(".plus");
+const quantityInput = document.querySelector("#quantity");
+const totalAmount = document.querySelector(".total-amount");
+const paymentForm = document.querySelector(".payment-form");
+const errorMessage = document.querySelector("#error-message");
+
+const MIN_QUANTITY = 50;
+const MAX_QUANTITY = 2000;
+const PRICE_PER_PAGE = 200;
+
+function makeEven(number) {
+  return number % 2 === 0 ? number : number + 1;
+}
+
+function handleErrorMessage(isValid) {
+  if (!isValid) {
+    errorMessage.textContent = "Số lượng phải là số chẵn trong khoảng từ 50 đến 2000.";
+    errorMessage.style.display = "block";
+  } else {
+    errorMessage.style.display = "none";
+  }
+}
+
+function validateQuantity(quantity) {
+  if (isNaN(quantity) || quantity < MIN_QUANTITY || quantity > MAX_QUANTITY || quantity % 2 !== 0) {
+    return false;
+  }
+  return true;
+}
+
+function updateTotalAmount(quantity) {
+  const total = quantity * PRICE_PER_PAGE;
+  totalAmount.textContent = `${total.toLocaleString()} VND`; // format as currency
+}
+
+function updateQuantity(newQuantity) {
+  if (newQuantity < MIN_QUANTITY) {
+    newQuantity = MIN_QUANTITY;
+  } else if (newQuantity > MAX_QUANTITY) {
+    newQuantity = MAX_QUANTITY;
+  }
+  newQuantity = makeEven(newQuantity);
+  quantityInput.value = newQuantity;
+  updateTotalAmount(newQuantity);
+}
+
+paymentForm.addEventListener("submit", (e) => {
+  e.preventDefault(); // Prevent form submission
+  const currentValue = parseInt(quantityInput.value);
+  const isValid = validateQuantity(currentValue);
+  handleErrorMessage(isValid);
+});
+
+minusButton.addEventListener("click", () => {
+  const currentValue = parseInt(quantityInput.value) || MIN_QUANTITY;
+  updateQuantity(currentValue - 2);
+});
+
+plusButton.addEventListener("click", () => {
+  const currentValue = parseInt(quantityInput.value) || MIN_QUANTITY;
+  updateQuantity(currentValue + 2);
+});
+
+quantityInput.addEventListener("blur", () => {
+  const currentValue = parseInt(quantityInput.value);
+  const isValid = validateQuantity(currentValue);
+  handleErrorMessage(isValid); // Show error message if invalid
+  if (isValid) {
+    updateQuantity(currentValue); // Validate, adjust to even, and update total
+  }
+});
+
+
+updateTotalAmount(50); // when page load

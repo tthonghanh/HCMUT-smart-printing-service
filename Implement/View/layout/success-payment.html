@@ -48,12 +48,12 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link active d-flex">
+                <a href="#" class="nav-link d-flex">
                   <span>In tài liệu</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link d-flex">
+                <a href="#" class="nav-link active d-flex">
                   <span>Mua trang in</span>
                 </a>
               </li>
@@ -87,106 +87,60 @@
             </div>
           </header>
 
-          <h1 class="page-title">In tài liệu</h1>
+          <section class="success-section">
+            <div class="success-icon">
+              <img src="../image/success-icon.png" alt="Success checkmark" />
+            </div>
 
-          <div class="content-container">
-            <section class="info-section">
-              <div class="info-card">
-                <h2 class="card-title">Thông tin tài khoản</h2>
-                <div class="info-list">
-                  <div class="info-item">
-                    <span class="info-label">Sinh viên</span>
-                    <span class="info-value">Nguyễn Văn A</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-label">Mã số sinh viên</span>
-                    <span class="info-value">2251234</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-label">Số trang in đang có</span>
-                    <span class="info-value">100 trang</span>
-                  </div>
-                </div>
+            <h1 class="success-title">Thanh toán thành công</h1>
+            <p class="success-message">
+              Quá trình thanh toán hoàn tất. Cảm ơn bạn đã sử dụng dịch vụ
+            </p>
+
+            <article class="receipt-card">
+              <div class="receipt-row">
+                <span class="receipt-label">Số tiền</span>
+                <span class="receipt-value">10,000 VND</span>
               </div>
 
-              <div class="info-card">
-                <h2 class="card-title">Thông tin file in</h2>
-                <div class="info-list">
-                  <div class="info-item">
-                    <span class="info-label">Tên file</span>
-                    <span class="info-value">BTL-CNPM</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-label">Loại file</span>
-                    <span class="info-value">pdf</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-label">Tổng số trang</span>
-                    <span class="info-value">60 trang</span>
-                  </div>
-                </div>
-
-                <div class="document-file">
-                  <div class="upload-card">
-                    <img
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/baa5de1cc941dc19586999840441e293bf0e1da40e1335294ac06778cb1d2947?placeholderIfAbsent=true&apiKey=2c13e78a7fed4eb6a9f5e1c84d9a05a4"
-                      alt="File icon"
-                      class="document-icon"
-                    />
-                    <div class="document-info">
-                      <p class="document-name">BTL-CNPM.pdf</p>
-                      <p class="document-size">5.3 MB</p>
-                    </div>
-                  </div>
-                </div>
+              <div class="receipt-row">
+                <span class="receipt-label">Trạng thái</span>
+                <span class="receipt-value">Thành công</span>
               </div>
-            </section>
 
-            <section class="settings-section">
-              <div class="settings-card">
-                <h2 class="settings-title">Cài đặt</h2>
-                <div class="settings-tab">Cài đặt thông số</div>
+              <div class="receipt-divider"></div>
 
-                <form class="settings-form">
-                  <div class="form-group">
-                    <label for="copies" class="form-label">Số bản in</label>
-                    <input
-                      type="number"
-                      id="copies"
-                      class="form-input"
-                      value="1"
-                    />
-                  </div>
-
-                  <div class="form-group">
-                    <label for="paperType" class="form-label">Loại giấy</label>
-                    <select id="paperType" class="form-input">
-                      <option disabled selected value>
-                        -- Chọn loại giấy --
-                      </option>
-                      <option value="A3">A3 (297 × 420)mm</option>
-                      <option value="A4">A4 (210 × 297)mm</option>
-                      <option value="A5">A5 (148 × 210)mm</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="sides" class="form-label">Số mặt</label>
-                    <select id="sides" class="form-input">
-                      <option disabled selected value>-- Chọn số mặt --</option>
-                      <option value="1">In 1 mặt</option>
-                      <option value="2">In 2 mặt</option>
-                    </select>
-                  </div>
-
-                  <div class="action-buttons">
-                    <div type="button" class="small-button-light">Quay lại</div>
-                    <div type="submit" class="small-button-dark">Tiếp</div>
-                  </div>
-                </form>
+              <div class="receipt-row">
+                <span class="receipt-label">Mã giao dịch</span>
+                <span class="receipt-value">000085752257</span>
               </div>
-            </section>
-          </div>
+
+              <div class="receipt-row">
+                <span class="receipt-label">Người giao dịch</span>
+                <span class="receipt-value">NGUYEN VAN A</span>
+              </div>
+
+              <div class="receipt-row">
+                <span class="receipt-label">Phương thức</span>
+                <span class="receipt-value">BKPay</span>
+              </div>
+
+              <div class="receipt-row">
+                <span class="receipt-label">Thời gian</span>
+                <span class="receipt-value">22/10/2024, 13:22:16</span>
+              </div>
+
+              <div class="receipt-row">
+                <span class="receipt-label">Nội dung</span>
+                <span class="receipt-value">SPSS - Thanh toán giấy in</span>
+              </div>
+            </article>
+
+            <div class="action-buttons align-center">
+              <div class="small-button-light">VỀ TRANG CHỦ</div>
+              <div class="small-button-dark">TIẾP TỤC IN TÀI LIỆU</div>
+            </div>
+          </section>
 
           <footer class="footer">
             <div class="footer-content">
