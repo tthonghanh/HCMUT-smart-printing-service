@@ -23,37 +23,37 @@
           </div>
           <ul class="nav-sidebar">
             <li class="nav-item">
-              <a href="#" class="nav-link d-flex">
+              <a href="{{url_for('student_home_page')}}" class="nav-link d-flex">
                 <span>Trang chủ</span>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link d-flex">
+              <a href="{{url_for('account_info')}}" class="nav-link d-flex">
                 <span>Thông tin tài khoản</span>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link active d-flex">
+              <a href="{{url_for('upload')}}" class="nav-link active d-flex">
                 <span>In tài liệu</span>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link d-flex">
+              <a href="{{url_for('buy_pages')}}" class="nav-link d-flex">
                 <span>Mua trang in</span>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link d-flex">
+              <a href="{{url_for('printing_history')}}" class="nav-link d-flex">
                 <span>Lịch sử in ấn</span>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link d-flex">
+              <a href="{{url_for('payment_history')}}" class="nav-link d-flex">
                 <span>Lịch sử giao dịch</span>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link d-flex">
+              <a href="{{url_for('logout')}}" class="nav-link d-flex">
                 <span>Đăng xuất</span>
               </a>
             </li>
@@ -81,8 +81,8 @@
           <div class="file-item">
             <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/baa5de1cc941dc19586999840441e293bf0e1da40e1335294ac06778cb1d2947?placeholderIfAbsent=true&apiKey=2c13e78a7fed4eb6a9f5e1c84d9a05a4" alt="" class="file-icon">
             <div class="file-info">
-              <div class="file-name">BTL-CNPM.pdf</div>
-              <div class="file-size">5.3MB</div>
+              <div class="file-name">{{config['file_to_print']}}</div>
+              <div class="file-size">{{config['file_size']}}</div>
             </div>
           </div>
         </section>
@@ -102,27 +102,27 @@
               <span class="detail-value">KH&KTMT</span>
 
               <span class="detail-label">Tên file</span>
-              <span class="detail-value">BTL-CNPM.pdf</span>
+              <span class="detail-value">{{config['file_to_print']}}</span>
             </div>
 
             <div class="detail-right">
               <span class="detail-label">Số bản in</span>
-              <span class="detail-value">1</span>
+              <span class="detail-value">{{config['copies']}}</span>
 
               <span class="detail-label">Loại giấy</span>
-              <span class="detail-value">A4</span>
+              <span class="detail-value">{{config['paper_type']}}</span>
 
               <span class="detail-label">Số mặt</span>
-              <span class="detail-value">2 mặt</span>
+              <span class="detail-value">{{config['sides']}} mặt</span>
 
               <span class="detail-label">Số trang</span>
-              <span class="detail-value">60 trang</span>
+              <span class="detail-value">{{config['num_pages']}} trang</span>
 
               <span class="detail-label">Máy in</span>
-              <span class="detail-value">01-Canon</span>
+              <span class="detail-value">{{config['printer']}}</span>
 
               <span class="detail-label">Địa điểm in</span>
-              <span class="detail-value">LTK-A4-402</span>
+              <span class="detail-value">{{config['printer_location']}}</span>
             </div>
 
           </div>

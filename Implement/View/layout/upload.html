@@ -27,48 +27,44 @@
             <div class="logo-container px-4 py-3 m-0">
               <div class="logo-wrapper">
                 <div class="logo-badge">
-                  <img
-                    src="../image/hcmut.png"
-                    alt="SPSS Logo"
-                    class="logo-image"
-                  />
+                  <img src="../image/hcmut.png" alt="SPSS Logo" class="logo-image">
                   <span class="logo-text">SPSS</span>
                 </div>
               </div>
             </div>
             <ul class="nav-sidebar">
               <li class="nav-item">
-                <a href="#" class="nav-link d-flex">
+                <a href="{{url_for('student_home_page')}}" class="nav-link d-flex">
                   <span>Trang chủ</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link d-flex">
+                <a href="{{url_for('account_info')}}" class="nav-link d-flex">
                   <span>Thông tin tài khoản</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link active d-flex">
+                <a href="{{url_for('upload')}}" class="nav-link active d-flex">
                   <span>In tài liệu</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link d-flex">
+                <a href="{{url_for('buy_pages')}}" class="nav-link d-flex">
                   <span>Mua trang in</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link d-flex">
+                <a href="{{url_for('printing_history')}}" class="nav-link d-flex">
                   <span>Lịch sử in ấn</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link d-flex">
+                <a href="{{url_for('payment_history')}}" class="nav-link d-flex">
                   <span>Lịch sử giao dịch</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link d-flex">
+                <a href="{{url_for('logout')}}" class="nav-link d-flex">
                   <span>Đăng xuất</span>
                 </a>
               </li>
@@ -95,12 +91,21 @@
           <h2 class="page-subtitle">
             Tải lên tài liệu của bạn và bắt đầu việc in tài liệu
           </h2>
+          <div id="flash-container">
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}" data-message="{{ message }}" data-category="{{ category }}"></div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+          </div>
 
           <section class="upload-section">
             <div class="main-upload">
               <h2 class="upload-title">Tải lên file in</h2>
               <p class="upload-desc">
-                Tải lên tài liệu của bạn ở đây, tối đa 1 files.
+                Tải lên tài liệu của bạn ở đây, tối đa 1 file.
               </p>
 
               <div class="upload-area">
@@ -109,6 +114,7 @@
                   method="post"
                   action=""
                   enctype="multipart/form-data"
+                  id="upload-form"
                 >
                   <label class="drag-drop-area">
                     <img src="../image/upload.svg" alt="" class="upload-icon" />
@@ -125,6 +131,7 @@
                     type="file"
                     id="file-input"
                     class="file-input"
+                    name="uploaded-file"
                     multiple
                     hidden
                   />
@@ -136,8 +143,75 @@
 
             <div class="action-buttons">
               <div class="small-button-light">Huỷ</div>
-              <div class="small-button-dark">Tiếp</div>
-            </div>
+              <div class="small-button-dark" id="submit-btn">Tiếp</div>
+          </div>
+      
+          <script>
+            const submitBtn = document.getElementById('submit-btn');
+            const form = document.getElementById('upload-form');
+            
+            submitBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent form's default behavior
+
+            const formData = new FormData(form);
+
+            // Send data via fetch
+            fetch('/upload', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => {
+                    if (response.redirected) {
+                        window.location.href = response.url; // Redirect to Flask's response URL
+                    } else {
+                        return response.json();
+                    }
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        showFlashMessage(data.message, 'success');
+                    } else {
+                        showFlashMessage(data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    showFlashMessage('An error occurred while uploading the file.', 'error');
+                    console.error(error);
+                });
+            });
+            // Call the function on page load
+          </script>
+          
+              <style>
+                  .flash-message {
+                      position: fixed;
+                      top: 10px;
+                      left: 50%;
+                      transform: translateX(-50%);
+                      padding: 10px 20px;
+                      border-radius: 5px;
+                      font-size: 14px;
+                      z-index: 1000;
+                      display: none;
+                  }
+          
+                  .flash-message.success {
+                      background-color: #d4edda;
+                      color: #155724;
+                      border: 1px solid #c3e6cb;
+                  }
+          
+                  .flash-message.error {
+                      background-color: #f8d7da;
+                      color: #721c24;
+                      border: 1px solid #f5c6cb;
+                  }
+          
+                  .flash-message.hidden {
+                      display: none;
+                  }
+              </style>
+          
           </section>
 
         </div>

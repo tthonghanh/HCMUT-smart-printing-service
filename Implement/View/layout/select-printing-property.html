@@ -23,37 +23,37 @@
           </div>
           <ul class="nav-sidebar">
             <li class="nav-item">
-              <a href="#" class="nav-link d-flex">
+              <a href="{{url_for('student_home_page')}}" class="nav-link d-flex">
                 <span>Trang chủ</span>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link d-flex">
+              <a href="{{url_for('account_info')}}" class="nav-link d-flex">
                 <span>Thông tin tài khoản</span>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link active d-flex">
+              <a href="{{url_for('upload')}}" class="nav-link active d-flex">
                 <span>In tài liệu</span>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link d-flex">
+              <a href="{{url_for('buy_pages')}}" class="nav-link d-flex">
                 <span>Mua trang in</span>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link d-flex">
+              <a href="{{url_for('printing_history')}}" class="nav-link d-flex">
                 <span>Lịch sử in ấn</span>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link d-flex">
+              <a href="{{url_for('payment_history')}}" class="nav-link d-flex">
                 <span>Lịch sử giao dịch</span>
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link d-flex">
+              <a href="{{url_for('logout')}}" class="nav-link d-flex">
                 <span>Đăng xuất</span>
               </a>
             </li>
@@ -102,15 +102,15 @@
             <div class="info-list">
               <div class="info-item">
                 <span class="info-label">Tên file</span>
-                <span class="info-value">BTL-CNPM</span>
+                <span class="info-value">{{config['file_name']}}</span>
               </div>
               <div class="info-item">
                 <span class="info-label">Loại file</span>
-                <span class="info-value">pdf</span>
+                <span class="info-value">{{config['file_type']}}</span>
               </div>
               <div class="info-item">
                 <span class="info-label">Tổng số trang</span>
-                <span class="info-value">60 trang</span>
+                <span class="info-value">{{config['num_pages']}}</span>
               </div>
             </div>
 
@@ -118,8 +118,8 @@
               <div class="upload-card">
                 <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/baa5de1cc941dc19586999840441e293bf0e1da40e1335294ac06778cb1d2947?placeholderIfAbsent=true&apiKey=2c13e78a7fed4eb6a9f5e1c84d9a05a4" alt="File icon" class="document-icon" />
                 <div class="document-info">
-                  <p class="document-name">BTL-CNPM.pdf</p>
-                  <p class="document-size">5.3 MB</p>
+                  <p class="document-name">{{config['file_to_print']}}</p>
+                  <p class="document-size">{{config['file_size']}}</p>
                 </div>
               </div>
             </div>
@@ -131,15 +131,15 @@
             <h2 class="settings-title">Cài đặt</h2>
             <div class="settings-tab">Cài đặt thông số</div>
 
-            <form class="settings-form">
+            <form id="settings-form" class="settings-form" action="." method="POST" >
               <div class="form-group">
                 <label for="copies" class="form-label">Số bản in</label>
-                <input type="number" id="copies" class="form-input" value="1">
+                <input type="number" id="copies" class="form-input" name="copies" value="1" required>
               </div>
 
               <div class="form-group">
                 <label for="paperType" class="form-label">Loại giấy</label>
-                <select id="paperType" class="form-input">
+                <select id="paperType" class="form-input" name="paper_type" required>
                   <option disabled selected value>-- Chọn loại giấy --</option>
                   <option value="A3">A3 (297 × 420)mm</option>
                   <option value="A4">A4 (210 × 297)mm</option>
@@ -149,20 +149,33 @@
 
               <div class="form-group">
                 <label for="sides" class="form-label">Số mặt</label>
-                <select id="sides" class="form-input">
+                <select id="sides" class="form-input" name="sides" required>
                   <option disabled selected value>-- Chọn số mặt --</option>
                   <option value="1">In 1 mặt</option>
                   <option value="2">In 2 mặt</option>
                 </select>
               </div>
-
+              <input type="hidden" name="file_to_print" value="{{ config['file_to_print'] }}">
+              <input type="hidden" name="file_name" value="{{ config['file_name'] }}">
+              <input type="hidden" name="file_type" value="{{ config['file_type'] }}">
+              <input type="hidden" name="num_pages" value="{{ config['num_pages'] }}">
+              <input type="hidden" name="file_size" value="{{ config['file_size'] }}">
               <div class="action-buttons">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                      <div id="error-popup" class="popup">
+                          <p>{{ messages[0][1] }}</p>
+                      </div>
+                  {% endif %}
+                {% endwith %}
                 <div type="button" class="small-button-light">Quay lại</div>
-                <div type="submit" class="small-button-dark">Tiếp</div>
+                <div type="submit" class="small-button-dark" id="submit-btn">Tiếp</div>
               </div>
             </form>
           </div>
+
         </section>
+        
       </div>
 
 
@@ -185,6 +198,34 @@
 
   <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script>
+      const submitBtn = document.getElementById('submit-btn');
+      const form = document.getElementById('settings-form');
+      
+      submitBtn.addEventListener('click', (e) => {
+      e.preventDefault(); // Prevent form's default behavior
+
+      const formData = new FormData(form);
+
+      // Send data via fetch
+      fetch('/select-printing-property', {
+          method: 'POST',
+          body: formData,
+      })
+          .then(response => {
+              if (response.redirected) {
+                  window.location.href = response.url; // Redirect to Flask's response URL
+              } else {
+                  return response.json();
+              }
+          })
+          .catch(error => {
+              showFlashMessage('An error occurred while uploading the file.', 'error');
+              console.error(error);
+          });
+      });
+      // Call the function on page load
+    </script>
     <script src="../js/main.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
