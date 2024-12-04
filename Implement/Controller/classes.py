@@ -1,183 +1,126 @@
-# Classes
+# Define the classes in a separate module
 
-class PrintingView:
-    def showProgress(self):
-        pass
+import os
+import PyPDF2
+import docx2pdf
+import json
 
-    def displayQuota(self):
-        pass
+class User:
+    def __init__(self, username, password, role):
+        self.username = username
+        self.password = password
+        self.role = role    
+    def authenticate(self):
+        raise NotImplementedError("This method should be overridden in subclasses")
 
-    def confirmPrinting(self):
-        pass
+class StudentAccount(User):
+    def __init__(self, username, password, role='Student'):
+        super().__init__(username, password, role)
+    def authenticate(self):
+        from config import STUDENT_ACCOUNT
+        return self.username in STUDENT_ACCOUNT and STUDENT_ACCOUNT[self.username] == self.password
 
-    def onPrint(self):
-        pass
+    def view_files(self):
+        # Functionality for viewing files accessible by students
+        return "Student is viewing accessible files."
 
-    def onChoosePrinter(self):
-        pass
+    def submit_print_request(self, file):
+        # Placeholder for submitting a print request
+        return f"Print request submitted for file: {file.file_name}"
 
-    def showPrinterList(self):
-        pass
+class AdminAccount(User):
+    def authenticate(self):
+        from config import MANAGER_ACCOUNT
+        return self.username in MANAGER_ACCOUNT and MANAGER_ACCOUNT[self.username] == self.password
 
-    def onPayment(self):
-        pass
+    def manage_printers(self):
+        # Functionality for managing printers
+        # Out of this module scope 
+        return "Admin is managing printers."
 
-    def showNewBalance(self):
-        pass
+class File:
+    def __init__(self, file_path):
+        self.file_path = file_path
+        self.file_name = os.path.basename(file_path)
+        self.file_type = self.file_name.split('.')[-1]
+        self.file_size = self.get_size()
+        self.num_pages = self.get_pages()
+    def get_pages(self):
+        if self.file_type == 'pdf':
+            pdf_file = open(self.file_path, 'rb')
+            pdf_reader = PyPDF2.PdfReader(pdf_file)
+            return len(pdf_reader.pages)
+        elif self.file_type == 'docx':
+            converted_pdf_path = f"{self.file_name.split('.')[0]}.pdf"
+            docx2pdf.convert(self.file_path, converted_pdf_path)
+            pdf_reader = PyPDF2.PdfReader(open(converted_pdf_path, 'rb'))
+            os.remove(converted_pdf_path)
+            return len(pdf_reader.pages)
+        return 0
+    def get_name(self):
+        return self.file_name
+    def get_size(self):
+        return os.path.getsize(self.file_path)
+    
+class Config:
+    def __init__(self):
+        self.data = {}
 
-    def displayPrintingHistory(self):
-        pass
+    def update(self, key, value):
+        self.data[key] = value
+    def get(self, key):
+        return self.data.get(key)
+    def setAttributes(self, config):
+        self.data = config
+    
+    def getAttributes(self):
+        return self.data
+    def to_json(self):
+        return json.dumps(self.data)
 
-    def onSettingProperties(self):
-        pass
-
-    def onUpload(self):
-        pass
-
-    def displayError(self):
-        pass
-
-    def previewDocument(self):
-        pass
-
-
-class PrintController:
-    def choosePrinter(self):
-        pass
-
-    def specifyPrintingProperties(self):
-        pass
-
-    def confirmPrinting(self):
-        pass
-
-    def printDocument(self):
-        pass
-
-    def checkUserQuota(self):
-        pass
-
-    def logPrintingAction(self):
-        pass
-
-    def confirmPrintJob(self):
-        pass
-
-    def requestMorePages(self):
-        pass
-
-    def checkBalance(self):
-        pass
-
-    def uploadDocument(self):
-        pass
-
-    def validateDocument(self):
-        pass
+    def from_json(self, json_str):
+        self.data = json.loads(json_str)
 
 
 class Printer:
-    def __init__(self, printerID, status, location):
-        self.printerID = printerID
-        self.status = status
-        self.location = location
-
-    def printDocument(self):
-        pass
-
-    def checkPrinterStatus(self):
-        pass
-
-
-class PrintJob:
-    def __init__(self, jobID, studentID, printerID, documentID, status, config, startTime, endTime):
-        self.jobID = jobID
-        self.studentID = studentID
-        self.printerID = printerID
-        self.documentID = documentID
-        self.status = status
-        self.config = config
-        self.startTime = startTime
-        self.endTime = endTime
-
-    def startPrintJob(self):
-        pass
-
-    def cancelPrintJob(self):
-        pass
-
-    def logPrintJobInfo(self):
-        pass
-
-
-class UserAccount:
-    def __init__(self, name, email, balance):
+    def __init__(self, name, location, print_config):
         self.name = name
-        self.email = email
-        self.balance = balance
+        self.location = location
+        self.printProperties = print_config
+    def __str__(self):
+        return f"{self.name};{self.location}"
 
-    def uploadDocument(self):
-        pass
+    def print_file(self, file: File):
+        # Simulate printing a file
+        return f"Printing {file.get_name()} on printer {self.name} located at {self.location}."
 
-    def choosePrinter(self):
-        pass
+class SessionManager:
+    @staticmethod
+    def init_session():
+        from flask import session
+        session['role'] = None
+        session['user_logged_in'] = False
 
-    def specifyPrintProperties(self):
-        pass
+    @staticmethod
+    def set_role(role):
+        from flask import session
+        session['role'] = role
 
-    def payForMoreQuota(self):
-        pass
+    @staticmethod
+    def is_logged_in():
+        from flask import session
+        return session.get('user_logged_in', False)
 
-    def checkBalance(self):
-        return self.balance
+    @staticmethod
+    def login_user(user):
+        from flask import session
+        session['user_logged_in'] = True
+        if isinstance(user, StudentAccount):
+            session['role'] = 'Student'
+        elif isinstance(user, AdminAccount):
+            session['role'] = 'Admin'
 
-
-class StudentAccount(UserAccount):
-    def __init__(self, name, email, balance, studentId):
-        super().__init__(name, email, balance)
-        self.studentId = studentId
-
-
-class Payment:
-    def __init__(self, paymentID, amount, transactionStatus, paymentInfo):
-        self.paymentID = paymentID
-        self.amount = amount
-        self.transactionStatus = transactionStatus
-        self.paymentInfo = paymentInfo
-
-    def logPayment(self):
-        pass
-
-    def processPayment(self):
-        pass
-
-    def refundPayment(self):
-        pass
-
-
-class Document:
-    def __init__(self, documentID, fileName, fileSize, fileType):
-        self.documentID = documentID
-        self.fileName = fileName
-        self.fileSize = fileSize
-        self.fileType = fileType
-
-    def validateDocument(self):
-        pass
-
-    def previewDocument(self):
-        pass
-
-
-class ConfigFile:
-    def __init__(self, paperSize, totalPages, isDoubleSided, numberOfCopies):
-        self.paperSize = paperSize
-        self.totalPages = totalPages
-        self.isDoubleSided = isDoubleSided
-        self.numberOfCopies = numberOfCopies
-
-    def setProperty(self):
-        pass
-
-    def getProperty(self):
-        pass
+    @staticmethod
+    def logout_user():
+        from flask import session
+        session.clear()

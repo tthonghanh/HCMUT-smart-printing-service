@@ -4,3 +4,10 @@ STUDENT_ACCOUNT = {
 MANAGER_ACCOUNT = {
     'spso': 'admin'
 }
+
+
+USER_CONFIG = {
+    'tranthienphu': {
+        
+    }
+}

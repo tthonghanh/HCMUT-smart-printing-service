@@ -185,6 +185,7 @@ paymentForm.addEventListener("submit", (e) => {
   const currentValue = parseInt(quantityInput.value);
   const isValid = validateQuantity(currentValue);
   handleErrorMessage(isValid);
+  paymentForm.submit();
 });
 
 minusButton.addEventListener("click", () => {

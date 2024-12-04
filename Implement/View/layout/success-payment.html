@@ -27,54 +27,51 @@
             <div class="logo-container px-4 py-3 m-0">
               <div class="logo-wrapper">
                 <div class="logo-badge">
-                  <img
-                    src="../image/hcmut.png"
-                    alt="SPSS Logo"
-                    class="logo-image"
-                  />
+                  <img src="../image/hcmut.png" alt="SPSS Logo" class="logo-image">
                   <span class="logo-text">SPSS</span>
                 </div>
               </div>
             </div>
             <ul class="nav-sidebar">
               <li class="nav-item">
-                <a href="#" class="nav-link d-flex">
+                <a href="{{url_for('student_home_page')}}" class="nav-link d-flex">
                   <span>Trang chủ</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link d-flex">
+                <a href="{{url_for('account_info')}}" class="nav-link d-flex">
                   <span>Thông tin tài khoản</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link d-flex">
+                <a href="{{url_for('upload')}}" class="nav-link d-flex">
                   <span>In tài liệu</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link active d-flex">
+                <a href="{{url_for('buy_pages')}}" class="nav-link active d-flex">
                   <span>Mua trang in</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link d-flex">
+                <a href="{{url_for('printing_history')}}" class="nav-link d-flex">
                   <span>Lịch sử in ấn</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link d-flex">
+                <a href="{{url_for('payment_history')}}" class="nav-link d-flex">
                   <span>Lịch sử giao dịch</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link d-flex">
+                <a href="{{url_for('logout')}}" class="nav-link d-flex">
                   <span>Đăng xuất</span>
                 </a>
               </li>
             </ul>
           </nav>
         </aside>
+    
 
         <div class="main-content">
           <header class="top-bar">
@@ -100,7 +97,7 @@
             <article class="receipt-card">
               <div class="receipt-row">
                 <span class="receipt-label">Số tiền</span>
-                <span class="receipt-value">10,000 VND</span>
+                <span class="receipt-value">{{total_price}} VND</span>
               </div>
 
               <div class="receipt-row">
@@ -137,8 +134,13 @@
             </article>
 
             <div class="action-buttons align-center">
-              <div class="small-button-light">VỀ TRANG CHỦ</div>
-              <div class="small-button-dark">TIẾP TỤC IN TÀI LIỆU</div>
+              <form action="/">
+                <button type="submit" class="small-button-dark">VỀ TRANG CHỦ</button>
+              </form>
+              <form action="/upload">
+                <button type="submit" class="small-button-dark">TIẾP TỤC IN TÀI LIỆU</button>
+  
+              </form>
             </div>
           </section>
 

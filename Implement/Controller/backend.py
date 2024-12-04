@@ -218,7 +218,7 @@ def serve_css(filename):
 
 @app.route('/admin-dashboard')
 def admin_dashboard():
-    return "NOT IMPLEMENTED YET"
+    return render_template('admin-dashboard.html')
 
 @app.route('/account-info')
 def account_info():
@@ -226,11 +226,11 @@ def account_info():
 
 @app.route('/payment-history')
 def payment_history():
-    return "NOT IMPLEMENTED YET"
+    return render_template('payment-history.html')
 
 @app.route('/buy-pages', methods=['GET', 'POST'])
 def buy_pages():
-    return "NOT IMPLEMENTED YET"
+    return render_template('select-number-of-pages.html')
 @app.route('/logout')
 def logout():
     # Clear the session
@@ -250,7 +250,9 @@ def dev():
         {'name': 'SSO', 'path': url_for('sso')},
         {'name': 'Student Home Page', 'path': url_for('student_home_page')},
         {'name': 'Success Request', 'path': url_for('success_request')},
-        {'name': 'Upload', 'path': url_for('upload')}
+        {'name': 'Upload', 'path': url_for('upload')},
+        {'name': 'Admin Dashboard', 'path': url_for('admin_dashboard')},
+
     ]
     return render_template('dev.html', routes=routes)
 # Run the Flask app
