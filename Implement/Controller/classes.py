@@ -29,6 +29,8 @@ class StudentAccount(User):
         return f"Print request submitted for file: {file.file_name}"
 
 class AdminAccount(User):
+    def __init__(self, username, password, role='Admin'):
+        super().__init__(username, password, role)
     def authenticate(self):
         from config import MANAGER_ACCOUNT
         return self.username in MANAGER_ACCOUNT and MANAGER_ACCOUNT[self.username] == self.password

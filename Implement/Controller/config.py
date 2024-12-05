@@ -8,6 +8,7 @@ MANAGER_ACCOUNT = {
 
 USER_CONFIG = {
     'tranthienphu': {
-        
+        'remaining_pages': 100,
+        'remaining_balance': 100,
     }
 }
