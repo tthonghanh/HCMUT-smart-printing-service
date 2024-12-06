@@ -103,8 +103,13 @@
               <div class="receipt-row">
                 <span class="receipt-label">Trạng thái</span>
                 <span class="receipt-value">Thành công</span>
+                
               </div>
-
+              <div class="receipt-row">
+                <span class="receipt-label">Số trang hiện tại</span>
+                <span class="receipt-value">{{cur_pages}} trang</span>
+                
+              </div>
               <div class="receipt-divider"></div>
 
               <div class="receipt-row">
@@ -124,7 +129,7 @@
 
               <div class="receipt-row">
                 <span class="receipt-label">Thời gian</span>
-                <span class="receipt-value">22/10/2024, 13:22:16</span>
+                <span class="receipt-value">{{transaction_time}}</span>
               </div>
 
               <div class="receipt-row">
@@ -137,10 +142,17 @@
               <form action="/">
                 <button type="submit" class="small-button-dark">VỀ TRANG CHỦ</button>
               </form>
-              <form action="/upload">
-                <button type="submit" class="small-button-dark">TIẾP TỤC IN TÀI LIỆU</button>
-  
-              </form>
+              {% if not redirect_to_print %}
+                <form action="/upload">
+                  <button type="submit" class="small-button-dark">TIẾP TỤC IN TÀI LIỆU</button>
+    
+                </form>
+              {% else %}
+                <form action="{{url_for('select_printing_property')}}">
+                  <button type="submit" class="small-button-dark">TIẾP TỤC IN TÀI LIỆU</button>
+    
+                </form>
+              {% endif %}
             </div>
           </section>
 

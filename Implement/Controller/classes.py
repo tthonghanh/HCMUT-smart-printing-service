@@ -4,7 +4,7 @@ import os
 import PyPDF2
 import docx2pdf
 import json
-
+from config import *
 class User:
     def __init__(self, username, password, role):
         self.username = username
@@ -14,8 +14,14 @@ class User:
         raise NotImplementedError("This method should be overridden in subclasses")
 
 class StudentAccount(User):
-    def __init__(self, username, password, role='Student'):
-        super().__init__(username, password, role)
+    def __init__(self, username=None, password=None, config=None,role='Student'):
+        if config:
+            self.from_json(config)
+            self.role = role
+        else:
+            super().__init__(username, password, role)
+            if username in USER_CONFIG.keys():
+                self.config = USER_CONFIG[username]
     def authenticate(self):
         from config import STUDENT_ACCOUNT
         return self.username in STUDENT_ACCOUNT and STUDENT_ACCOUNT[self.username] == self.password
@@ -27,7 +33,17 @@ class StudentAccount(User):
     def submit_print_request(self, file):
         # Placeholder for submitting a print request
         return f"Print request submitted for file: {file.file_name}"
-
+    def to_json(self):
+        return json.dumps({
+            'username': self.username,
+            'password': self.password,
+            'config': self.config
+        })
+    def from_json(self, json_data):
+        data = json.loads(json_data)
+        self.username = data['username']
+        self.password = data['password']
+        self.config = data['config']
 class AdminAccount(User):
     def __init__(self, username, password, role='Admin'):
         super().__init__(username, password, role)

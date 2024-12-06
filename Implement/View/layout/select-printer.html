@@ -128,6 +128,11 @@
           <div class="settings-card">
             <h2 class="section-title">Cài đặt</h2>
             <div class="settings-tab">Chọn máy in</div>
+            {% if error %}
+                <h4>
+                    <p>Vui lòng chọn máy in </p>
+                </h4>
+            {% endif %}
             <form method="POST" action="/select-printer">  <!-- Add the form method and action -->
               <input type="hidden" name="config" value="{{config}}">
 
@@ -145,7 +150,7 @@
                 </div>
                 <input value = "01-Canon;Lý Thường Kiệt - A4-402" type="radio" name="printer" class="printer-checkbox" aria-label="Select printer 02-Canon">
               </div>
-
+              
               <div class="printer-item">
                 <div class="printer-info">
                   <span class="printer-name">02-Canon</span>
@@ -177,8 +182,9 @@
                 </div>
                 <input value="05-Toshiba;Dĩ An - H2-203" type="radio" name="printer" class="printer-checkbox" aria-label="Select printer 05-Toshiba">
               </div>
-
+              
               <div class="action-buttons">
+                
                 <div type="button" class="small-button-light">Quay lại</div>
                 <button type="submit" class="small-button-dark">Tiếp</button>
               </div>

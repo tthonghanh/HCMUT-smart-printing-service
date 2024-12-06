@@ -93,7 +93,15 @@
               <div class="table-cell cell-width-5">Số tiền</div>
               <div class="table-cell cell-width-5">Trạng thái</div>
             </div>
-
+            {% for his in history %}
+              <div class="table-row">
+                <div class="table-cell cell-width-5">#23456</div>
+                <div class="table-cell cell-width-5">{{his['date']}}</div>
+                <div class="table-cell cell-width-5">{{his['quantity']}}</div>
+                <div class="table-cell cell-width-5">{{his['price']}} VND</div>
+                <div class="status-badge status-pending">Thành công</div>
+              </div>
+            {% endfor %}
             <div class="table-row">
               <div class="table-cell cell-width-5">#23456</div>
               <div class="table-cell cell-width-5">10/10/2024</div>

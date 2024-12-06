@@ -5,8 +5,10 @@ import PyPDF2
 import docx2pdf
 import json
 import ast
+import math
 from config import *
 from classes import *
+import datetime
 # Create the Flask app with custom static and template paths
 app = Flask(
     __name__,
@@ -14,6 +16,8 @@ app = Flask(
     template_folder='../View/layout'  # Templates directory
 )
 app.secret_key = 'your_secret_key'
+global current_user
+current_user = None
 
 app.config["UPLOAD_FOLDER"] = "uploaded_files"
 if os.path.exists(app.config["UPLOAD_FOLDER"]):
@@ -47,12 +51,16 @@ class InfoSummary(MethodView):
             config = request.form.get('config')
         print(config)
         config = ast.literal_eval(config)
-
+        
         return redirect(url_for('success_request', config=json.dumps(config)))
 
 class PrintingHistory(MethodView):
     def get(self):
-        return render_template('printing-history.html')
+        if not 'print_action_this_session' in session:
+            his = []
+        else:
+            his = session['print_action_this_session']
+        return render_template('printing-history.html', history = his)
 
 class RoleSelection(MethodView):
     def get(self):
@@ -71,17 +79,34 @@ class SelectPrinter(MethodView):
 
     def post(self):
         config = ast.literal_eval(request.form.get('config'))
-        printer, printer_location = request.form.get('printer').split(';')
+        try:
+            printer, printer_location = request.form.get('printer').split(';')
+        except:
+            # None selected
+            return render_template('select-printer.html', config=config, error=True)
+
         config['printer'] = printer
         config['printer_location'] = printer_location
         return redirect(url_for('info_summary', config=json.dumps(config)))
 
 class SelectPrintingProperty(MethodView):
     def get(self):
+
+        if 'return_after_payment' in session.keys() and session['return_after_payment']:
+            config = session['prev_config']
+            session.pop('return_after_payment')
+            return render_template('select-printing-property.html', config=config, remaining_pages = current_user.config['remaining_pages'])
+
+        if request.args.get('config'):
+            config = request.args.get('config')
+            print(config)
+            return render_template('select-printing-property.html', config=json.loads(config), remaining_pages = current_user.config['remaining_pages'])
+
         try:
             file_to_print = request.args.get('file_to_print')
         except:
             file_to_print = request.form.get('file_to_print')
+        
         
         file = File(file_to_print)
         config = {
@@ -92,9 +117,10 @@ class SelectPrintingProperty(MethodView):
             'file_size': file.get_size()
         }
 
-        return render_template('select-printing-property.html', config=config)
+        return render_template('select-printing-property.html', config=config, remaining_pages = current_user.config['remaining_pages'])
 
     def post(self):
+        
         config = {
             'file_to_print': request.form.get('file_to_print'),
             'file_name': request.form.get('file_name'),
@@ -105,6 +131,31 @@ class SelectPrintingProperty(MethodView):
             'paper_type': request.form.get('paper_type'),
             'sides': request.form.get('sides')
         }
+        session['prev_config'] = config # save config to session for later use
+
+        if int(config.get('copies')) <= 0:
+            config['error_msg_0'] = True
+
+            return redirect(url_for('select_printing_property', config=json.dumps(config), remaining_pages = current_user.config['remaining_pages']))
+        if config.get('sides') == None or config.get('paper_type') == None:
+            flash('Please select number of copies and sides!', 'error')
+            error_msg = 'Please select number of copies and sides'
+            config['error_msg_1'] = True
+            print(config, error_msg)
+            return redirect(url_for('select_printing_property', config=json.dumps(config), remaining_pages = current_user.config['remaining_pages']))
+        page_tpye_count = {
+            "A3": 2,
+            "A4": 1, 
+            "A5": 0.5
+        }
+        config['actual_pages'] = int(config['copies'])*math.ceil((int(config['num_pages'])/int(config['sides']) * page_tpye_count[config['paper_type']]))
+        
+        # cur_user = StudentAccount(config = session['current_user'])
+        if config['actual_pages'] > current_user.config['remaining_pages']:
+            config['error_msg_2'] = True
+            return redirect(url_for('select_printing_property', config=json.dumps(config),  remaining_pages = current_user.config['remaining_pages']))
+
+        print(config)
         flash('Printing settings configured successfully!', 'success')
         return redirect(url_for('select_printer', config=json.dumps(config)))
 
@@ -126,6 +177,10 @@ class SSO(MethodView):
         
 
         if user.authenticate():
+            global current_user
+            current_user = user
+            session['current_user'] = user.to_json()
+            print(session)
             flash(f'Welcome {username}!', 'success')
             return redirect(url_for('student_home_page') if session['role'] == 'User' else url_for('admin_dashboard'))
         else:
@@ -177,7 +232,23 @@ class SuccessRequest(MethodView):
 
             printer.print_file(file_to_print)
             flash(f'Printing request sent to {printer_name} at {printer_location}', 'info')
-        return render_template('success-request.html')
+
+            current_user.config['remaining_pages'] -= int(config['actual_pages'])
+        
+        
+        processed_time = datetime.datetime.now()
+        print_date     = processed_time + datetime.timedelta(days=3)
+        config['processed_date'] = processed_time.strftime('%d-%m-%Y')
+        config['print_date'] = print_date.strftime('%d-%m-%Y')
+        if not 'print_action_this_session' in session.keys():
+            session['print_action_this_session'] = []
+        session['print_action_this_session'].append(config)
+        print(session)
+        return render_template('success-request.html',
+                                remaining_pages  = current_user.config['remaining_pages'],
+                                transaction_time = processed_time.strftime('%d-%m-%Y, %H:%M:%S'),
+                                print_date       = print_date.strftime('%d-%m-%Y, %H:%M:%S')
+        )
 
 class AdminDashboard(MethodView):
     def get(self):
@@ -185,22 +256,40 @@ class AdminDashboard(MethodView):
 
 class PaymentHistory(MethodView):
     def get(self):
-        return render_template('payment-history.html')
+        if 'payment_this_session' not in session.keys():
+            history = []
+        else:
+            history = session['payment_this_session']
+        return render_template('payment-history.html', history=history)
 
 class BuyPages(MethodView):
     def get(self):
+        is_from_print_page = bool(request.args.get('from_print_page'))
+        session['return_after_payment'] = is_from_print_page
         return render_template('select-number-of-page.html')
-    
     def post(self):
         num_pages = request.form.get('quantity')
+        cur_user  = StudentAccount(config = session['current_user'])
+        cur_user.config['remaining_pages'] += int(num_pages)
+        current_user.config['remaining_pages'] += int(num_pages)
+
+        session['current_user'] = cur_user.to_json()
         return redirect(url_for('success_payment', num_pages=num_pages))
 
 class SuccessPaymentView(MethodView):
     def get(self):
-        # You can add more logic to process payment info here if necessary
         num_pages = request.args.get('num_pages')
+        cur_pages = StudentAccount(config = session['current_user']).config['remaining_pages']
         flash(f'You bought {num_pages} pages.', 'info')
-        return render_template('success-payment.html', quantity=num_pages, total_price=int(num_pages)*200)
+        if 'payment_this_session' not in session.keys():
+            session['payment_this_session'] = []
+        pay_history = {
+            'quantity': num_pages,
+            'price': int(num_pages)*200,
+            'date': datetime.datetime.now().strftime('%d/%m/%Y')
+        }
+        session['payment_this_session'].append(pay_history)
+        return render_template('success-payment.html', cur_pages = cur_pages, quantity=num_pages, total_price=int(num_pages)*200, transaction_time=datetime.datetime.now().strftime('%d-%m-%Y, %H:%M:%S'), redirect_to_print= session['return_after_payment'])
 class Logout(MethodView):
     def get(self):
         session.clear()
@@ -241,6 +330,9 @@ app.add_url_rule('/logout', view_func=Logout.as_view('logout'))
 app.add_url_rule('/dev', view_func=Dev.as_view('dev'))
 app.add_url_rule('/payment-success', view_func=SuccessPaymentView.as_view('success_payment'))
 
+@app.route('/idunno')
+def idunno():
+    return current_user.to_json() if current_user else "WHAT"
 @app.route('/account-info')
 def account_info():
     return "Not implemented"

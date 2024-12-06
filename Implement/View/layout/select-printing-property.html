@@ -77,6 +77,7 @@
   
         <h1 class="page-title">In tài liệu</h1>
 
+        
           <div class="content-container">
             <section class="info-section">
               <div class="info-card">
@@ -92,7 +93,7 @@
                   </div>
                   <div class="info-item">
                     <span class="info-label">Số trang in đang có</span>
-                    <span class="info-value">100 trang</span>
+                    <span class="info-value">{{remaining_pages}} trang</span>
                   </div>
                 </div>
               </div>
@@ -130,7 +131,7 @@
               <div class="settings-card">
                 <h2 class="settings-title">Cài đặt</h2>
                 <div class="settings-tab">Cài đặt thông số</div>
-
+                
             <form id="settings-form" class="settings-form" action="." method="POST" >
               <div class="form-group">
                 <label for="copies" class="form-label">Số bản in</label>
@@ -155,21 +156,34 @@
                   <option value="2">In 2 mặt</option>
                 </select>
               </div>
+              {% if config['error_msg_0'] %}
+                <h4>
+                        <p>Vui lòng chọn số bản in hợp lệ</p>
+                </h4>
+              {% endif %}
+              {% if config['error_msg_1'] %}
+                <h4>
+                        <p>Vui lòng chọn loại giấy và số mặt </p>
+                </h4>
+              {% endif %}
+              {% if config['error_msg_2'] %}
+                <h4>
+                        <p>Số trang còn lại trong tài khoản không đủ, vui lòng mua thêm giấy </p>
+                </h4>
+              {% endif %}
               <input type="hidden" name="file_to_print" value="{{ config['file_to_print'] }}">
               <input type="hidden" name="file_name" value="{{ config['file_name'] }}">
               <input type="hidden" name="file_type" value="{{ config['file_type'] }}">
               <input type="hidden" name="num_pages" value="{{ config['num_pages'] }}">
               <input type="hidden" name="file_size" value="{{ config['file_size'] }}">
               <div class="action-buttons">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                  {% if messages %}
-                      <div id="error-popup" class="popup">
-                          <p>{{ messages[0][1] }}</p>
-                      </div>
-                  {% endif %}
-                {% endwith %}
+                
                 <div type="button" class="small-button-light">Quay lại</div>
-                <div type="submit" class="small-button-dark" id="submit-btn">Tiếp</div>
+                <button type="submit" class="small-button-dark" id="submit-btn">Tiếp</button>
+                {% if config['error_msg_2'] %}
+                  <button onclick="window.location.href='/buy-pages?from_print_page=True'" class="small-button-dark" id="submit-btn">Mua thêm giấy</button>
+                {% endif %}
+
               </div>
             </form>
           </div>
