@@ -47,8 +47,9 @@ html, body {
   width: 100%;
   align-items: center;
   justify-content: center;
-  gap: 32px;
+  gap: 0px;
   flex: 1;
+  height: 100px;
 }
 
 .logo-wrapper {
@@ -71,8 +72,7 @@ html, body {
 
 .logo-image {
   width: 44px;
-  aspect-ratio: 0.85;
-  object-fit: contain;
+  /* object-fit: contain; */
 }
 
 .logo-text {
@@ -183,7 +183,7 @@ html, body {
 
 .login-button {
   border-radius: 6px;
-  background-color: #f0f0f0;
+  background-color: #f0f0f0 !important;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -195,7 +195,7 @@ html, body {
 
 .login-button:hover {
   border-radius: 6px;
-  background-color: #1488DB;
+  background-color: #1488DB !important;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -564,6 +564,7 @@ html, body {
   text-decoration: none;
   border: none;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .small-button-light:hover {
@@ -582,6 +583,7 @@ html, body {
   text-decoration: none;
   border: none;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .small-button-dark {
@@ -600,6 +602,7 @@ html, body {
   text-decoration: none;
   border: none;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .small-button-dark:hover {
@@ -618,6 +621,7 @@ html, body {
   text-decoration: none;
   border: none;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .file-preview {
@@ -652,6 +656,13 @@ html, body {
 .file-name {
   color: #0b0b0b;
   font-weight: 600;
+
+  max-width: 300px; /* Adjust the width as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .file-size {
@@ -708,6 +719,8 @@ html, body {
 
 .document-info {
   flex: 1;
+  /* width: 80%; */
+  align-items:self-start;
 }
 
 .document-name {
@@ -715,6 +728,13 @@ html, body {
   font-weight: 600;
   font-size: 15px;
   margin: 10px 0;
+
+  max-width: 200px; /* Adjust the width as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .document-size {
@@ -755,19 +775,21 @@ html, body {
   display: flex;
   gap: 20px;
   max-width: 1037px;
-  margin: 0 auto;
+  margin: 63px auto;
 }
 
 .info-section {
   width: 43%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .info-card {
   border-radius: 16px;
   background: #fff;
   box-shadow: 0 4px 50px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.05);
-  padding: 24px;
-  margin-bottom: 25px;
+  padding: 30px;
 }
 
 .card-title {
@@ -775,6 +797,7 @@ html, body {
   font: 700 18px/1 Inter, sans-serif;
   letter-spacing: -0.2px;
   margin-bottom: 20px;
+  font-size: 20px;
 }
 
 .info-list {
@@ -790,13 +813,20 @@ html, body {
 }
 
 .info-label {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 800;
 }
 
 .info-value {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 400;
+
+  max-width: 250px; /* Adjust the width as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .file-upload {
@@ -826,7 +856,7 @@ html, body {
   border-radius: 16px;
   background: #fff;
   box-shadow: 0 4px 50px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.05);
-  padding: 30px 50px;
+  padding: 25px 50px;
 }
 
 .settings-title {
@@ -858,6 +888,7 @@ html, body {
 .form-label {
   color: #000;
   font: 400 20px Arimo, sans-serif;
+  width: 40%;
 }
 
 .form-input {
@@ -974,11 +1005,18 @@ html, body {
 
 .detail-label {
   font-weight: 800;
+  font-size: 20px;
 }
 
 .detail-value {
   font-weight: 400;
-  font-size: 14px;
+  font-size: 20px;
+  max-width: 300px; /* Adjust the width as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .align-center {
@@ -1054,32 +1092,40 @@ html, body {
 /* printing history */
 .table-header {
   display: flex;
-  padding: 16px 20px;
+  padding: 16px 20px !important;
   gap: 2%;
   color: #696969;
   font: 400 14px 'Work Sans', sans-serif;
   font-weight: bold;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .table-cell {
   display: flex;
   align-items: center;
+  justify-content: space-around;
   gap: 2%;
+
+  max-width: 200px; /* Adjust the width as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .cell-width-5 {
-  width: 20%;
+  grid-template-columns: repeat(5, 1fr) !important;
 }
 
 .cell-width-6 {
-  width: 15%;
+  width: 100%;
 }
 
 .table-row {
   background: #fff;
   border-radius: 10px;
-  padding: 16px 20px;
+  padding: 16px 20px !important;
   margin-top: 12px;
   display: flex;
   align-items: center;
@@ -1293,7 +1339,7 @@ html, body {
   border-radius: 8px;
   background-color: #fff;
   min-height: 40px;
-  min-width: 240px;
+  /* min-width: 240px; */
   margin-top: 8px;
   width: 100%;
   padding: 12px;
@@ -1337,20 +1383,6 @@ html, body {
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
-}
-
-/* Button styling */
-.login-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.login-button:hover {
-  background-color: #45a049;
 }
 
 /* Popup styling */

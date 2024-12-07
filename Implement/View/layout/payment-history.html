@@ -27,14 +27,21 @@
             <div class="logo-container px-4 py-3 m-0">
               <div class="logo-wrapper">
                 <div class="logo-badge">
-                  <img src="../image/hcmut.png" alt="SPSS Logo" class="logo-image">
+                  <img
+                    src="../image/hcmut.png"
+                    alt="SPSS Logo"
+                    class="logo-image"
+                  />
                   <span class="logo-text">SPSS</span>
                 </div>
               </div>
             </div>
             <ul class="nav-sidebar">
               <li class="nav-item">
-                <a href="{{url_for('student_home_page')}}" class="nav-link d-flex">
+                <a
+                  href="{{url_for('student_home_page')}}"
+                  class="nav-link d-flex"
+                >
                   <span>Trang chủ</span>
                 </a>
               </li>
@@ -54,12 +61,18 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url_for('printing_history')}}" class="nav-link d-flex">
+                <a
+                  href="{{url_for('printing_history')}}"
+                  class="nav-link d-flex"
+                >
                   <span>Lịch sử in ấn</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url_for('payment_history')}}" class="nav-link active d-flex">
+                <a
+                  href="{{url_for('payment_history')}}"
+                  class="nav-link active d-flex"
+                >
                   <span>Lịch sử giao dịch</span>
                 </a>
               </li>
@@ -71,7 +84,6 @@
             </ul>
           </nav>
         </aside>
-    
 
         <div class="main-content">
           <header class="top-bar">
@@ -86,108 +98,108 @@
 
           <h1 class="page-title">Lịch sử giao dịch</h1>
           <section class="content-section d-block">
-            <div class="table-header">
-              <div class="table-cell cell-width-5">Mã giao dịch</div>
-              <div class="table-cell cell-width-5">Ngày giao dịch</div>
-              <div class="table-cell cell-width-5">Số trang mua</div>
-              <div class="table-cell cell-width-5">Số tiền</div>
-              <div class="table-cell cell-width-5">Trạng thái</div>
+            <div class="table-header cell-width-5">
+              <div class="table-cell">Mã giao dịch</div>
+              <div class="table-cell">Ngày giao dịch</div>
+              <div class="table-cell">Số trang mua</div>
+              <div class="table-cell">Số tiền</div>
+              <div class="table-cell">Trạng thái</div>
             </div>
             {% for his in history %}
-              <div class="table-row">
-                <div class="table-cell cell-width-5">#23456</div>
-                <div class="table-cell cell-width-5">{{his['date']}}</div>
-                <div class="table-cell cell-width-5">{{his['quantity']}}</div>
-                <div class="table-cell cell-width-5">{{his['price']}} VND</div>
-                <div class="status-badge status-pending">Thành công</div>
-              </div>
+            <div class="table-row cell-width-5">
+              <div class="table-cell">#23456</div>
+              <div class="table-cell">{{his['date']}}</div>
+              <div class="table-cell">{{his['quantity']}}</div>
+              <div class="table-cell">{{his['price']}} VND</div>
+              <div class="status-badge status-complete">Thành công</div>
+            </div>
             {% endfor %}
-            <div class="table-row">
-              <div class="table-cell cell-width-5">#23456</div>
-              <div class="table-cell cell-width-5">10/10/2024</div>
-              <div class="table-cell cell-width-5">100 trang</div>
-              <div class="table-cell cell-width-5">20,000 VND</div>
-              <div class="table-cell cell-width-5">
+            <div class="table-row cell-width-5">
+              <div class="table-cell">#23456</div>
+              <div class="table-cell">10/10/2024</div>
+              <div class="table-cell">100 trang</div>
+              <div class="table-cell">20,000 VND</div>
+              <div class="table-cell">
                 <div class="status-badge status-complete">Thành công</div>
               </div>
             </div>
 
-            <div class="table-row">
-              <div class="table-cell cell-width-5">#56489</div>
-              <div class="table-cell cell-width-5">10/10/2024</div>
-              <div class="table-cell cell-width-5">100 trang</div>
-              <div class="table-cell cell-width-5">20,000 VND</div>
-              <div class="table-cell cell-width-5">
+            <div class="table-row cell-width-5">
+              <div class="table-cell">#56489</div>
+              <div class="table-cell">10/10/2024</div>
+              <div class="table-cell">100 trang</div>
+              <div class="table-cell">20,000 VND</div>
+              <div class="table-cell">
                 <div class="status-badge status-complete">Thành công</div>
               </div>
             </div>
 
-            <div class="table-row">
-              <div class="table-cell cell-width-5">#48394</div>
-              <div class="table-cell cell-width-5">10/10/2024</div>
-              <div class="table-cell cell-width-5">100 trang</div>
-              <div class="table-cell cell-width-5">20,000 VND</div>
-              <div class="table-cell cell-width-5">
+            <div class="table-row cell-width-5">
+              <div class="table-cell">#48394</div>
+              <div class="table-cell">10/10/2024</div>
+              <div class="table-cell">100 trang</div>
+              <div class="table-cell">20,000 VND</div>
+              <div class="table-cell">
                 <div class="status-badge status-pending">Đang xử lý</div>
               </div>
             </div>
 
-            <div class="table-row">
-              <div class="table-cell cell-width-5">#48394</div>
-              <div class="table-cell cell-width-5">10/10/2024</div>
-              <div class="table-cell cell-width-5">100 trang</div>
-              <div class="table-cell cell-width-5">20,000 VND</div>
-              <div class="table-cell cell-width-5">
+            <div class="table-row cell-width-5">
+              <div class="table-cell">#48394</div>
+              <div class="table-cell">10/10/2024</div>
+              <div class="table-cell">100 trang</div>
+              <div class="table-cell">20,000 VND</div>
+              <div class="table-cell">
                 <div class="status-badge status-pending">Đang xử lý</div>
               </div>
             </div>
 
-            <div class="table-row">
-              <div class="table-cell cell-width-5">#48394</div>
-              <div class="table-cell cell-width-5">10/10/2024</div>
-              <div class="table-cell cell-width-5">100 trang</div>
-              <div class="table-cell cell-width-5">20,000 VND</div>
-              <div class="table-cell cell-width-5">
+            <div class="table-row cell-width-5">
+              <div class="table-cell">#48394</div>
+              <div class="table-cell">10/10/2024</div>
+              <div class="table-cell">100 trang</div>
+              <div class="table-cell">20,000 VND</div>
+              <div class="table-cell">
                 <div class="status-badge status-pending">Đang xử lý</div>
               </div>
             </div>
 
-            <div class="table-row">
-              <div class="table-cell cell-width-5">#48394</div>
-              <div class="table-cell cell-width-5">10/10/2024</div>
-              <div class="table-cell cell-width-5">100 trang</div>
-              <div class="table-cell cell-width-5">20,000 VND</div>
-              <div class="table-cell cell-width-5">
+            <div class="table-row cell-width-5">
+              <div class="table-cell">#48394</div>
+              <div class="table-cell">10/10/2024</div>
+              <div class="table-cell">100 trang</div>
+              <div class="table-cell">20,000 VND</div>
+              <div class="table-cell">
                 <div class="status-badge status-pending">Đang xử lý</div>
               </div>
             </div>
 
-            <div class="table-row">
-              <div class="table-cell cell-width-5">#48394</div>
-              <div class="table-cell cell-width-5">10/10/2024</div>
-              <div class="table-cell cell-width-5">100 trang</div>
-              <div class="table-cell cell-width-5">20,000 VND</div>
-              <div class="table-cell cell-width-5">
+            <div class="table-row cell-width-5">
+              <div class="table-cell">#48394</div>
+              <div class="table-cell">10/10/2024</div>
+              <div class="table-cell">100 trang</div>
+              <div class="table-cell">20,000 VND</div>
+              <div class="table-cell">
                 <div class="status-badge status-pending">Đang xử lý</div>
               </div>
             </div>
 
-            <div class="table-row">
-              <div class="table-cell cell-width-5">#48394</div>
-              <div class="table-cell cell-width-5">10/10/2024</div>
-              <div class="table-cell cell-width-5">100 trang</div>
-              <div class="table-cell cell-width-5">20,000 VND</div>
-              <div class="table-cell cell-width-5">
+            <div class="table-row cell-width-5">
+              <div class="table-cell">#48394</div>
+              <div class="table-cell">10/10/2024</div>
+              <div class="table-cell">100 trang</div>
+              <div class="table-cell">20,000 VND</div>
+              <div class="table-cell">
                 <div class="status-badge status-pending">Đang xử lý</div>
               </div>
             </div>
 
-            <div class="table-row">
-              <div class="table-cell cell-width-5">#48394</div>
-              <div class="table-cell cell-width-5">10/10/2024</div>
-              <div class="table-cell cell-width-5">100 trang</div>
-              <div class="table-cell cell-width-5">20,000 VND</div>
-              <div class="table-cell cell-width-5">
+            <div class="table-row cell-width-5">
+              <div class="table-cell">#48394</div>
+              <div class="table-cell">10/10/2024</div>
+              <div class="table-cell">100 trang</div>
+              <div class="table-cell">20,000 VND</div>
+              <div class="table-cell">
                 <div class="status-badge status-pending">Đang xử lý</div>
               </div>
             </div>
@@ -211,24 +223,24 @@
             </nav>
           </section>
 
-          <footer class="footer">
-            <div class="footer-content">
-              <div>
-                Copyright 2024 © Nhóm 11 - Công nghệ Phần mềm - CC04 - CO3001 -
-                HK241
-              </div>
-              <div class="contact-item">
-                <i class="fa-solid fa-envelope"></i>
-                <span>BKNetID@hcmut.edu.vn</span>
-              </div>
-              <div class="contact-item">
-                <i class="fa-solid fa-phone"></i>
-                <span>0912 345 678</span>
-              </div>
-            </div>
-          </footer>
         </div>
       </div>
+      <footer class="footer layout-width">
+        <div class="footer-content">
+          <div>
+            Copyright 2024 © Nhóm 11 - Công nghệ Phần mềm - CC04 - CO3001 -
+            HK241
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>BKNetID@hcmut.edu.vn</span>
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>0912 345 678</span>
+          </div>
+        </div>
+      </footer>
     </div>
 
     <!-- Optional JavaScript -->

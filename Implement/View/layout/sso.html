@@ -25,17 +25,17 @@
         <nav class="top-nav">
           <div class="header">
             <div class="header-content">
-              <div class="logo-container px-4 py-3 m-0">
-                <div class="logo-wrapper">
-                  <div class="logo-badge">
+              <div class="logo-container">
+                <!-- <div class="logo-wrapper">
+                  <div class="logo-badge"> -->
                     <img
-                      src="../image/hcmut.png"
+                      src="../image/logo-group.png"
                       alt="SPSS Logo"
                       class="logo-image"
+                      style="width: 150px;"
                     />
-                    <span class="logo-text">SPSS</span>
-                  </div>
-                </div>
+                  <!-- </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -60,9 +60,16 @@
                 <button type="submit" class="submit-button">Đăng nhập</button>
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
-                        <div id="error-popup" class="popup">
-                            <p>{{ messages[0][1] }}</p>
+                        <div id="error-popup" class="alert alert-danger alert-dismissible fade show popup" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                          <strong>{{ messages[0][1] }}</strong> 
                         </div>
+                        
+                        <script>
+                          $(".alert").alert();
+                        </script>
                     {% endif %}
                 {% endwith %}
                 <a href="#" class="forgot-password">Quên mật khẩu?</a>

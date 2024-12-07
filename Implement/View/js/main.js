@@ -144,6 +144,20 @@ const MIN_QUANTITY = 50;
 const MAX_QUANTITY = 2000;
 const PRICE_PER_PAGE = 200;
 
+// const error_msg = {
+//   selectNumberOfPage: {
+//     quantity: "Số lượng phải là số chẵn trong khoảng từ 50 đến 2000.",
+//   },
+//   selectPrintingProperties: {
+//     quantity: "Số bản in phải lớn hơn 0",
+//     paperType: "Vui lòng chọn loại giấy hợp lệ.",
+//     sides: "Vui lòng chọn số mặt in hợp lệ.",
+//   },
+//   summaryPage: {
+//     insufficientPages: "Số trang còn lại trong tài khoản không đủ, vui lòng mua thêm giấy.",
+//   },
+// }
+
 function makeEven(number) {
   return number % 2 === 0 ? number : number + 1;
 }
@@ -206,6 +220,5 @@ quantityInput.addEventListener("blur", () => {
     updateQuantity(currentValue); // Validate, adjust to even, and update total
   }
 });
-
 
 updateTotalAmount(50); // when page load

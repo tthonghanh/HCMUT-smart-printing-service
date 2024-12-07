@@ -63,9 +63,6 @@
   
       <div class="main-content">
         <header class="top-bar">
-          <div class="search-box">
-            <input type="search" placeholder="Tìm kiếm" aria-label="Search">
-          </div>
           <div class="user-profile">
             <img src="../image/avatar.svg" alt="User avatar" width="49">
             <div class="user-info">
@@ -77,141 +74,156 @@
   
         <h1 class="page-title">In tài liệu</h1>
 
-        
-          <div class="content-container">
-            <section class="info-section">
-              <div class="info-card">
-                <h2 class="card-title">Thông tin tài khoản</h2>
-                <div class="info-list">
-                  <div class="info-item">
-                    <span class="info-label">Sinh viên</span>
-                    <span class="info-value">Nguyễn Văn A</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-label">Mã số sinh viên</span>
-                    <span class="info-value">2251234</span>
-                  </div>
-                  <div class="info-item">
-                    <span class="info-label">Số trang in đang có</span>
-                    <span class="info-value">{{remaining_pages}} trang</span>
-                  </div>
+        <div class="content-container">
+          <section class="info-section">
+            <div class="info-card">
+              <h2 class="card-title">Thông tin tài khoản</h2>
+              <div class="info-list">
+                <div class="info-item">
+                  <span class="info-label">Sinh viên</span>
+                  <span class="info-value">Nguyễn Văn A</span>
                 </div>
-              </div>
-
-          <div class="info-card">
-            <h2 class="card-title">Thông tin file in</h2>
-            <div class="info-list">
-              <div class="info-item">
-                <span class="info-label">Tên file</span>
-                <span class="info-value">{{config['file_name']}}</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Loại file</span>
-                <span class="info-value">{{config['file_type']}}</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Tổng số trang</span>
-                <span class="info-value">{{config['num_pages']}}</span>
-              </div>
-            </div>
-
-            <div class="document-file">
-              <div class="upload-card">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/baa5de1cc941dc19586999840441e293bf0e1da40e1335294ac06778cb1d2947?placeholderIfAbsent=true&apiKey=2c13e78a7fed4eb6a9f5e1c84d9a05a4" alt="File icon" class="document-icon" />
-                <div class="document-info">
-                  <p class="document-name">{{config['file_name'] + '.' + config['file_type']}}</p>
-                  <p class="document-size">{{config['file_size']}}</p>
+                <div class="info-item">
+                  <span class="info-label">Mã số sinh viên</span>
+                  <span class="info-value">2251234</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Số trang in đang có</span>
+                  <span class="info-value">{{remaining_pages}} trang</span>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
 
-            <section class="settings-section">
-              <div class="settings-card">
-                <h2 class="settings-title">Cài đặt</h2>
-                <div class="settings-tab">Cài đặt thông số</div>
+            <div class="info-card">
+              <h2 class="card-title">Thông tin file in</h2>
+              <div class="info-list">
+                <div class="info-item">
+                  <span class="info-label">Tên file</span>
+                  <span class="info-value">{{config['file_name']}}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Loại file</span>
+                  <span class="info-value">{{config['file_type']}}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Tổng số trang</span>
+                  <span class="info-value">{{config['num_pages']}}</span>
+                </div>
+              </div>
+
+              <div class="document-file">
+                <div class="upload-card">
+                  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/baa5de1cc941dc19586999840441e293bf0e1da40e1335294ac06778cb1d2947?placeholderIfAbsent=true&apiKey=2c13e78a7fed4eb6a9f5e1c84d9a05a4" alt="File icon" class="document-icon" />
+                  <div class="document-info">
+                    <p class="document-name">{{config['file_name'] + '.' + config['file_type']}}</p>
+                    <p class="document-size">{{config['file_size']}} KB</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="settings-section">
+            <div class="settings-card">
+              <h2 class="settings-title">Cài đặt</h2>
+              <div class="settings-tab">Cài đặt thông số</div>
+              
+              <form id="settings-form" class="settings-form" action="." method="POST" >
+                <div class="form-group">
+                  <label for="copies" class="form-label">Số bản in</label>
+                  <input type="number" id="copies" class="form-input" name="copies" value="1" required>
+                </div>
+                <div class="form-group">
+                  <label for="paperType" class="form-label">Loại giấy</label>
+                  <select id="paperType" class="form-input" name="paper_type" required>
+                    <option disabled selected value>-- Chọn loại giấy --</option>
+                    <option value="A3">A3 (297 × 420)mm</option>
+                    <option value="A4">A4 (210 × 297)mm</option>
+                    <option value="A5">A5 (148 × 210)mm</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="sides" class="form-label">Số mặt</label>
+                  <select id="sides" class="form-input" name="sides" required>
+                    <option disabled selected value>-- Chọn số mặt --</option>
+                    <option value="1">In 1 mặt</option>
+                    <option value="2">In 2 mặt</option>
+                  </select>
+                </div>
+                <input type="hidden" name="file_to_print" value="{{ config['file_to_print'] }}">
+                <input type="hidden" name="file_name" value="{{ config['file_name'] }}">
+                <input type="hidden" name="file_type" value="{{ config['file_type'] }}">
+                <input type="hidden" name="num_pages" value="{{ config['num_pages'] }}">
+                <input type="hidden" name="file_size" value="{{ config['file_size'] }}">
                 
-            <form id="settings-form" class="settings-form" action="." method="POST" >
-              <div class="form-group">
-                <label for="copies" class="form-label">Số bản in</label>
-                <input type="number" id="copies" class="form-input" name="copies" value="1" required>
-              </div>
+                <div class="action-buttons">
+                  <div type="button" class="small-button-light">Quay lại</div>
+                  <button type="submit" class="small-button-dark" id="submit-btn">Tiếp</button>
+                  {% if config['error_msg_2'] %}
+                    <button onclick="window.location.href='/buy-pages?from_print_page=True'" class="small-button-dark" id="submit-btn">Mua thêm giấy</button>
+                  {% endif %}
+                </div>
 
-              <div class="form-group">
-                <label for="paperType" class="form-label">Loại giấy</label>
-                <select id="paperType" class="form-input" name="paper_type" required>
-                  <option disabled selected value>-- Chọn loại giấy --</option>
-                  <option value="A3">A3 (297 × 420)mm</option>
-                  <option value="A4">A4 (210 × 297)mm</option>
-                  <option value="A5">A5 (148 × 210)mm</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="sides" class="form-label">Số mặt</label>
-                <select id="sides" class="form-input" name="sides" required>
-                  <option disabled selected value>-- Chọn số mặt --</option>
-                  <option value="1">In 1 mặt</option>
-                  <option value="2">In 2 mặt</option>
-                </select>
-              </div>
-              {% if config['error_msg_0'] %}
-                <h4>
-                        <p>Vui lòng chọn số bản in hợp lệ</p>
-                </h4>
-              {% endif %}
-              {% if config['error_msg_1'] %}
-                <h4>
-                        <p>Vui lòng chọn loại giấy và số mặt </p>
-                </h4>
-              {% endif %}
-              {% if config['error_msg_2'] %}
-                <h4>
-                        <p>Số trang còn lại trong tài khoản không đủ, vui lòng mua thêm giấy </p>
-                </h4>
-              {% endif %}
-              <input type="hidden" name="file_to_print" value="{{ config['file_to_print'] }}">
-              <input type="hidden" name="file_name" value="{{ config['file_name'] }}">
-              <input type="hidden" name="file_type" value="{{ config['file_type'] }}">
-              <input type="hidden" name="num_pages" value="{{ config['num_pages'] }}">
-              <input type="hidden" name="file_size" value="{{ config['file_size'] }}">
-              <div class="action-buttons">
-                
-                <div type="button" class="small-button-light">Quay lại</div>
-                <button type="submit" class="small-button-dark" id="submit-btn">Tiếp</button>
-                {% if config['error_msg_2'] %}
-                  <button onclick="window.location.href='/buy-pages?from_print_page=True'" class="small-button-dark" id="submit-btn">Mua thêm giấy</button>
+                {% if config['error_msg_0'] %}
+                  <div id="error-popup" class="alert alert-danger alert-dismissible fade show popup" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Vui lòng chọn số bản in hợp lệ</strong> 
+                  </div>
+                  
+                  <script>
+                    $(".alert").alert();
+                  </script>
                 {% endif %}
-
-              </div>
-            </form>
-          </div>
-
-        </section>
-        
-      </div>
-
-
-          <footer class="footer">
-            <div class="footer-content">
-              <div>
-                Copyright 2024 © Nhóm 11 - Công nghệ Phần mềm - CC04 - CO3001 -
-                HK241
-              </div>
-              <div class="contact-item">
-                <i class="fa-solid fa-envelope"></i>
-                <span>BKNetID@hcmut.edu.vn</span>
-              </div>
-              <div class="contact-item">
-                <i class="fa-solid fa-phone"></i>
-                <span>0912 345 678</span>
-              </div>
+                {% if config['error_msg_1'] %}
+                  <div id="error-popup" class="alert alert-danger alert-dismissible fade show popup" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Vui lòng chọn loại giấy và số mặt</strong> 
+                  </div>
+                  
+                  <script>
+                    $(".alert").alert();
+                  </script>
+                {% endif %}
+                {% if config['error_msg_2'] %}
+                  <div id="error-popup" class="alert alert-danger alert-dismissible fade show popup" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Số trang còn lại trong tài khoản không đủ, vui lòng mua thêm giấy</strong> 
+                  </div>
+                  
+                  <script>
+                    $(".alert").alert();
+                  </script>
+                {% endif %}
+              </form>
             </div>
-          </footer>
+
+          </section>
         </div>
       </div>
     </div>
+    <footer class="footer layout-width">
+      <div class="footer-content">
+        <div>
+          Copyright 2024 © Nhóm 11 - Công nghệ Phần mềm - CC04 - CO3001 -
+          HK241
+        </div>
+        <div class="contact-item">
+          <i class="fa-solid fa-envelope"></i>
+          <span>BKNetID@hcmut.edu.vn</span>
+        </div>
+        <div class="contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <span>0912 345 678</span>
+        </div>
+      </div>
+    </footer>
+  </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -242,6 +254,16 @@
           });
       });
       // Call the function on page load
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const popup = document.getElementById('error-popup');
+        if (popup) {
+            popup.style.display = 'block'; // Show the popup
+            setTimeout(function() {
+                popup.style.display = 'none'; // Hide the popup after 3 seconds
+            }, 3000);
+        }
+    });
     </script>
     <script src="../js/main.js"></script>
 
