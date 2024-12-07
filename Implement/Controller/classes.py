@@ -9,12 +9,25 @@ class User:
     def __init__(self, username, password, role):
         self.username = username
         self.password = password
-        self.role = role    
+        self.role = role   
+        self.config = {} 
     def authenticate(self):
         raise NotImplementedError("This method should be overridden in subclasses")
-
+    def to_json(self):
+        return json.dumps({
+            'username': self.username,
+            'password': self.password,
+            'config': self.config
+        })
+    def from_json(self, json_data):
+        data = json.loads(json_data)
+        self.username = data['username']
+        self.password = data['password']
+        self.config = data['config']
+        
 class StudentAccount(User):
     def __init__(self, username=None, password=None, config=None,role='Student'):
+        
         if config:
             self.from_json(config)
             self.role = role
