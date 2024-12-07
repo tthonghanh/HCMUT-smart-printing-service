@@ -32,6 +32,7 @@ os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 
 class HomePage(MethodView):
     def get(self):
+        print(session)
         if 'user_logged_in' in session and session['user_logged_in']:
             if session['role'] == 'User':
                 return redirect(url_for('student_home_page'))
@@ -181,6 +182,7 @@ class SSO(MethodView):
             current_user = user
             session['current_user'] = user.to_json()
             print(session)
+            session['user_logged_in'] = True
             flash(f'Welcome {username}!', 'success')
             return redirect(url_for('student_home_page') if session['role'] == 'User' else url_for('admin_dashboard'))
         else:
