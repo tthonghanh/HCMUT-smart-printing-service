@@ -114,7 +114,7 @@ class SelectPrintingProperty(MethodView):
             'file_name': '.'.join(os.path.basename(file_to_print).split('.')[:-1]),
             'file_type': file_to_print.split('.')[-1],
             'num_pages': file.get_pages(),
-            'file_size': file.get_size()
+            'file_size': round(file.get_size() / 1024, 2)
         }
 
         return render_template('select-printing-property.html', config=config, remaining_pages = current_user.config['remaining_pages'])
@@ -238,16 +238,16 @@ class SuccessRequest(MethodView):
         
         processed_time = datetime.datetime.now()
         print_date     = processed_time + datetime.timedelta(days=3)
-        config['processed_date'] = processed_time.strftime('%d-%m-%Y')
-        config['print_date'] = print_date.strftime('%d-%m-%Y')
+        config['processed_date'] = processed_time.strftime('%d/%m/%Y')
+        config['print_date'] = print_date.strftime('%d/%m/%Y')
         if not 'print_action_this_session' in session.keys():
             session['print_action_this_session'] = []
         session['print_action_this_session'].append(config)
         print(session)
         return render_template('success-request.html',
                                 remaining_pages  = current_user.config['remaining_pages'],
-                                transaction_time = processed_time.strftime('%d-%m-%Y, %H:%M:%S'),
-                                print_date       = print_date.strftime('%d-%m-%Y, %H:%M:%S')
+                                transaction_time = processed_time.strftime('%d/%m/%Y, %H:%M:%S'),
+                                print_date       = print_date.strftime('%d/%m/%Y, %H:%M:%S')
         )
 
 class AdminDashboard(MethodView):
