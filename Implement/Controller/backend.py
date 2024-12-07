@@ -254,7 +254,11 @@ class SuccessRequest(MethodView):
 
 class AdminDashboard(MethodView):
     def get(self):
-        return render_template('admin-dashboard.html')
+        if not 'print_action_this_session' in session:
+            his = []
+        else:
+            his = session['print_action_this_session']
+        return render_template('admin-dashboard.html', history = his)
 
 class PaymentHistory(MethodView):
     def get(self):
@@ -294,7 +298,10 @@ class SuccessPaymentView(MethodView):
         return render_template('success-payment.html', cur_pages = cur_pages, quantity=num_pages, total_price=int(num_pages)*200, transaction_time=datetime.datetime.now().strftime('%d-%m-%Y, %H:%M:%S'), redirect_to_print= session['return_after_payment'])
 class Logout(MethodView):
     def get(self):
-        session.clear()
+        session.pop('role')
+        session.pop('current_user')
+        # session.pop('config')
+        session.pop('user_logged_in')
         return redirect(url_for('home'))
 
 class Dev(MethodView):

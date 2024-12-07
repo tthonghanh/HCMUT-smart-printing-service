@@ -134,7 +134,17 @@
                 <div>Số máy</div>
                 <div>Ngày</div>
               </div>
+              {% for his in history %}
+                <div class="table-row">
+                  <div>Nguyễn Văn A</div>
+                  <div>2252678</div>
+                  <div>KH&KTMT</div>
+                  <div>a.nguyen@hcmut.edu.vn</div>
+                  <div>{{his['printer'].split('-')[0] + '-' + his['printer_location']}}</div>
+                  <div>{{his['processed_date']}}</div>
 
+                </div>
+              {% endfor %}
               <div class="table-row">
                 <div>Nguyễn Văn A</div>
                 <div>2252678</div>
