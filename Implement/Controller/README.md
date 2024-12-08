@@ -1,15 +1,5 @@
 # For current development
-In this current commit, I have:
-- Finish routing every html pages
-- Added some exception handling 
-- Handle some communication between frontend and backend, including:
-  - Set, save and send config of printer and files
-  - Config of user account is not implemented yet
-  - Missing some frontend files from the lastest commit on branch frontend
-Remaining tasks include:
-- Add designed classes
-- Handle lastest commit on branch frontend
-- Wait for testing and feedback
+Finished final product prototype
 # Flask Project Setup Guide
 
 This project is a simple Flask application. Follow the instructions below to set up the environment and run the application.
