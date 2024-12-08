@@ -156,7 +156,7 @@
             </div>
 
             <div class="action-buttons align-center">
-              <div class="small-button-light">Chỉnh sửa</div>
+              <div onclick="window.history.back()" class="small-button-light" id="back-btn">Quay lại</div>
               <form action="/info-summary" method="POST">
                 <input type="hidden" name="config" value="{{config}}" />
                 <button type="submit" class="small-button-dark">

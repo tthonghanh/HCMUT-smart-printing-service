@@ -18,7 +18,6 @@ app = Flask(
 app.secret_key = 'your_secret_key'
 global current_user
 current_user = None
-
 app.config["UPLOAD_FOLDER"] = "uploaded_files"
 if os.path.exists(app.config["UPLOAD_FOLDER"]):
     # If the upload folder exists, remove all files in it
@@ -107,8 +106,10 @@ class SelectPrintingProperty(MethodView):
             file_to_print = request.args.get('file_to_print')
         except:
             file_to_print = request.form.get('file_to_print')
-        
-        
+
+        if 'processing_file' in session.keys() and session['processing_file']:
+            file_to_print = session['processing_file']
+        print(session)
         file = File(file_to_print)
         config = {
             'file_to_print': file_to_print,
@@ -191,6 +192,9 @@ class SSO(MethodView):
 
 class Upload(MethodView):
     def get(self):
+        if 'processing_file' in session:
+            os.remove(session['processing_file'])
+            session.pop('processing_file')
         return render_template('upload.html')
 
     def post(self):
@@ -206,8 +210,11 @@ class Upload(MethodView):
             if file.filename == '':
                 flash('No selected file', 'error')
                 return render_template('upload.html')
+
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
             file.save(file_path)
+            session['processing_file'] = file_path
+
             flash(f'File "{file.filename}" uploaded successfully!', 'success')
 
         return redirect(url_for('select_printing_property', file_to_print=file_path))
@@ -339,9 +346,10 @@ app.add_url_rule('/logout', view_func=Logout.as_view('logout'))
 app.add_url_rule('/dev', view_func=Dev.as_view('dev'))
 app.add_url_rule('/payment-success', view_func=SuccessPaymentView.as_view('success_payment'))
 
-@app.route('/idunno')
+@app.route('/clear_session')
 def idunno():
-    return current_user.to_json() if current_user else "WHAT"
+    session.clear()
+    return redirect('/')
 @app.route('/account-info')
 def account_info():
     return "Not implemented"

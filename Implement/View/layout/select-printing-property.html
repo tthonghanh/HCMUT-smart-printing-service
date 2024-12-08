@@ -157,7 +157,7 @@
                 <input type="hidden" name="file_size" value="{{ config['file_size'] }}">
                 
                 <div class="action-buttons">
-                  <div type="button" class="small-button-light">Quay lại</div>
+                  <button onclick="window.history.back()" class="small-button-light" id="back-btn">Quay lại</button>
                   <button type="submit" class="small-button-dark" id="submit-btn">Tiếp</button>
                   {% if config['error_msg_2'] %}
                     <button onclick="window.location.href='/buy-pages?from_print_page=True'" class="small-button-dark" id="submit-btn">Mua thêm giấy</button>
