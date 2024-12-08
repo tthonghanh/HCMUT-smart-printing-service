@@ -42,7 +42,7 @@ pip install -r requirements.txt
 Once the dependencies are installed, you can start the Flask server by running:
 
 ```bash
-python app.py
+python backend.py
 ```
 
 By default, Flask will run on `http://127.0.0.1:5000/`.
