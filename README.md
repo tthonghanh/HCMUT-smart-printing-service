@@ -20,10 +20,10 @@ Current version: 1.6
 
 ### SPSO (Student Printing Service Officers) page:
 - Admin dashboard
-- We did not implement the features of SPSO because we just focus on printing module.
+- We did not implement the features of SPSO because we just focused on printing module.
 
 ## Document
-- A final report that contain all the information of the system
+- A final report that contains all the information of the system
 - Images used in report
 - Version change
 
