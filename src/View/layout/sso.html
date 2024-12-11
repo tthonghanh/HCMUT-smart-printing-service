@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="home-container">
+      <div class="auth-container">
+        <nav class="top-nav">
+          <div class="header">
+            <div class="header-content">
+              <div class="logo-container">
+                <!-- <div class="logo-wrapper">
+                  <div class="logo-badge"> -->
+                    <img
+                      src="../image/logo-group.png"
+                      alt="SPSS Logo"
+                      class="logo-image"
+                      style="width: 150px;"
+                    />
+                  <!-- </div>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </nav>
+      
+        <h1 class="service-title">DỊCH VỤ XÁC THỰC TẬP TRUNG</h1>
+      
+        <main class="auth-content">
+          <div class="auth-grid">
+            <div class="form-column">
+              <form class="auth-form" method="POST" action="{{ url_for('sso') }}"">
+                <div class="input-group">
+                    <label for="username">Tên đăng nhập</label>
+                    <input type="text" id="username" name="username" class="form-input" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" name="password" class="form-input" required>
+                </div>
+            
+                <button type="submit" class="submit-button">Đăng nhập</button>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div id="error-popup" class="alert alert-danger alert-dismissible fade show popup" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                          <strong>{{ messages[0][1] }}</strong> 
+                        </div>
+                        
+                        <script>
+                          $(".alert").alert();
+                        </script>
+                    {% endif %}
+                {% endwith %}
+                <a href="#" class="forgot-password">Quên mật khẩu?</a>
+              </form>
+            </div>
+            
+            <div class="image-column">
+              <img src="../image/login.jpg" alt="Authentication illustration" class="auth-image">
+            </div>
+          </div>
+        </main>
+      </div>
+      <footer class="footer">
+        <div class="footer-content">
+          <div>
+            Copyright 2024 © Nhóm 11 - Công nghệ Phần mềm - CC04 - CO3001 -
+            HK241
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>BKNetID@hcmut.edu.vn</span>
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>0912 345 678</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          const popup = document.getElementById('error-popup');
+          if (popup) {
+              popup.style.display = 'block'; // Show the popup
+              setTimeout(function() {
+                  popup.style.display = 'none'; // Hide the popup after 3 seconds
+              }, 3000);
+          }
+      });
+  </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="../js/main.js"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

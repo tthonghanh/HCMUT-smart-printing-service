@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="home-container">
+      <div class="layout-wrapper">
+        <aside class="sidebar">
+          <nav>
+            <div class="logo-container px-4 py-3 m-0">
+              <div class="logo-wrapper">
+                <div class="logo-badge">
+                  <img
+                    src="../image/hcmut.png"
+                    alt="SPSS Logo"
+                    class="logo-image"
+                  />
+                  <span class="logo-text">SPSS</span>
+                </div>
+              </div>
+            </div>
+            <ul class="nav-sidebar">
+              <li class="nav-item">
+                <a href="#" class="nav-link active d-flex">
+                  <span>Trang chủ</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link d-flex">
+                  <span>Quản lý yêu cầu in</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link d-flex">
+                  <span>Quản lý máy in</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link d-flex">
+                  <span>Quản lý người dùng</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link d-flex">
+                  <span>Lịch sử in ấn</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link d-flex">
+                  <span>Lịch sử giao dịch</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link d-flex">
+                  <span>Cài đặt</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url_for('logout')}}" class="nav-link d-flex">
+                  <span>Đăng xuất</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+
+        <div class="main-content">
+          <header class="top-bar">
+            <div class="user-profile">
+              <img src="../image/avatar.svg" alt="User avatar" width="49" />
+              <div class="user-info">
+                <div class="user-name">Nguyễn Văn A</div>
+                <div class="user-role">KHMT</div>
+              </div>
+            </div>
+          </header>
+
+          <div class="main-section">
+            <section class="stats-grid">
+              <div class="stat-card">
+                <img src="../image/admin01.svg" alt="" class="stat-icon" />
+                <h2 class="stat-title">Tổng sinh viên</h2>
+                <div class="stat-value">5,423</div>
+                <div class="stat-trend trend-up">
+                  <i class="fa-solid fa-arrow-up"></i>
+                  <span>16% tháng này</span>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <img src="../image/admin02.svg" alt="" class="stat-icon" />
+                <h2 class="stat-title">Tổng số lần in</h2>
+                <div class="stat-value">1,893</div>
+                <div class="stat-trend trend-down">
+                  <i class="fa-solid fa-arrow-down"></i>
+                  <span>1% tháng này</span>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <img src="../image/admin03.svg" alt="" class="stat-icon" />
+                <h2 class="stat-title">Doanh thu</h2>
+                <div class="stat-value">189,9 Tr</div>
+              </div>
+            </section>
+
+            <section class="recent-requests">
+              <div class="section-header">
+                <h2 class="section-title">Yêu cầu gần đây</h2>
+              </div>
+
+              <div class="table-header">
+                <div>Họ và tên</div>
+                <div>MSSV</div>
+                <div>Khoa</div>
+                <div>Email</div>
+                <div>Số máy</div>
+                <div>Ngày</div>
+              </div>
+              {% for his in history %}
+                <div class="table-row">
+                  <div>Nguyễn Văn A</div>
+                  <div>2252678</div>
+                  <div>KH&KTMT</div>
+                  <div>a.nguyen@hcmut.edu.vn</div>
+                  <div>{{his['printer'].split('-')[0] + '-' + his['printer_location']}}</div>
+                  <div>{{his['processed_date']}}</div>
+
+                </div>
+              {% endfor %}
+              <div class="table-row">
+                <div>Nguyễn Văn A</div>
+                <div>2252678</div>
+                <div>KH&KTMT</div>
+                <div>a.nguyen@hcmut.edu.vn</div>
+                <div>01-LTK-A4-402</div>
+                <div>14/10/2024</div>
+              </div>
+
+              <div class="table-row">
+                <div>Nguyễn Văn A</div>
+                <div>2252678</div>
+                <div>KH&KTMT</div>
+                <div>a.nguyen@hcmut.edu.vn</div>
+                <div>01-LTK-A4-402</div>
+                <div>14/10/2024</div>
+              </div>
+
+              <div class="table-row">
+                <div>Nguyễn Văn A</div>
+                <div>2252678</div>
+                <div>KH&KTMT</div>
+                <div>a.nguyen@hcmut.edu.vn</div>
+                <div>01-LTK-A4-402</div>
+                <div>14/10/2024</div>
+              </div>
+
+              <div class="table-row">
+                <div>Nguyễn Văn A</div>
+                <div>2252678</div>
+                <div>KH&KTMT</div>
+                <div>a.nguyen@hcmut.edu.vn</div>
+                <div>01-LTK-A4-402</div>
+                <div>14/10/2024</div>
+              </div>
+
+              <div class="table-row">
+                <div>Nguyễn Văn A</div>
+                <div>2252678</div>
+                <div>KH&KTMT</div>
+                <div>a.nguyen@hcmut.edu.vn</div>
+                <div>01-LTK-A4-402</div>
+                <div>14/10/2024</div>
+              </div>
+
+              <div class="table-row">
+                <div>Nguyễn Văn A</div>
+                <div>2252678</div>
+                <div>KH&KTMT</div>
+                <div>a.nguyen@hcmut.edu.vn</div>
+                <div>01-LTK-A4-402</div>
+                <div>14/10/2024</div>
+              </div>
+
+              <div class="table-row">
+                <div>Nguyễn Văn A</div>
+                <div>2252678</div>
+                <div>KH&KTMT</div>
+                <div>a.nguyen@hcmut.edu.vn</div>
+                <div>01-LTK-A4-402</div>
+                <div>14/10/2024</div>
+              </div>
+
+              <div class="table-row">
+                <div>Nguyễn Văn A</div>
+                <div>2252678</div>
+                <div>KH&KTMT</div>
+                <div>a.nguyen@hcmut.edu.vn</div>
+                <div>01-LTK-A4-402</div>
+                <div>14/10/2024</div>
+              </div>
+
+              <div class="table-row">
+                <div>Nguyễn Văn A</div>
+                <div>2252678</div>
+                <div>KH&KTMT</div>
+                <div>a.nguyen@hcmut.edu.vn</div>
+                <div>01-LTK-A4-402</div>
+                <div>14/10/2024</div>
+              </div>
+
+              <div class="table-row">
+                <div>Nguyễn Văn A</div>
+                <div>2252678</div>
+                <div>KH&KTMT</div>
+                <div>a.nguyen@hcmut.edu.vn</div>
+                <div>01-LTK-A4-402</div>
+                <div>14/10/2024</div>
+              </div>
+
+              <nav class="pagination" aria-label="Pagination">
+                <img
+                  src="../image/left-arrow.svg"
+                  alt="Previous page"
+                  class="nav-icon"
+                />
+                <a href="#" class="page-item active" aria-current="page">1</a>
+                <a href="#" class="page-item">2</a>
+                <span class="page-item">...</span>
+                <a href="#" class="page-item">9</a>
+                <a href="#" class="page-item">10</a>
+                <img
+                  src="../image/right-arrow.svg"
+                  alt="Next page"
+                  class="nav-icon"
+                />
+              </nav>
+            </section>
+          </div>
+        </div>
+      </div>
+      <footer class="footer layout-width">
+        <div class="footer-content">
+          <div>
+            Copyright 2024 © Nhóm 11 - Công nghệ Phần mềm - CC04 - CO3001 -
+            HK241
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>BKNetID@hcmut.edu.vn</span>
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>0912 345 678</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="../js/main.js"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

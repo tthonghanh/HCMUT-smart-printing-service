@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Routes</title>
+    <link rel="stylesheet" href="{{ url_for('serve_css', filename='style.css') }}">
+</head>
+<body>
+    <h1>Development Routes</h1>
+    <div>
+        <!-- Dynamically generate buttons for each route -->
+        {% for route in routes %}
+        <div style="margin-bottom: 10px;">
+            <button onclick="window.location.href='{{ route.path }}';" style="padding: 10px 20px;">
+                Go to {{ route.name }}
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+    <script src="{{ url_for('serve_js', filename='main.js') }}"></script>
+</body>
+</html>
