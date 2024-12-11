@@ -27,8 +27,6 @@ Current version: 1.6
 - Images used in report
 - Version change
 
-## For current development
-Finished final product prototype
 ## Flask Project Setup Guide
 
 This project is a simple Flask application. Follow the instructions below to set up the environment and run the application.
