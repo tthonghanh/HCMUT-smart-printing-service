@@ -27,22 +27,22 @@ Current version: 1.6
 - Images used in report
 - Version change
 
-# For current development
+## For current development
 Finished final product prototype
-# Flask Project Setup Guide
+## Flask Project Setup Guide
 
 This project is a simple Flask application. Follow the instructions below to set up the environment and run the application.
 
-## Prerequisites
+### Prerequisites
 
 - Python 3.10 or higher
 - `pip` (Python package manager)
 
 If you don't know how to set up a Python environment, we recommend using **Conda** (a package manager for Python). You can install Conda from [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
 
-## Setup Instructions
+### Setup Instructions
 
-### 1. Create a Virtual Environment
+#### 1. Create a Virtual Environment
 
 If you are using **Conda**, you can create a new environment with the following command:
 
@@ -58,7 +58,7 @@ conda activate flask-env
 
 If you're using **virtualenv** or other methods, create and activate your environment as appropriate.
 
-### 2. Install Dependencies
+#### 2. Install Dependencies
 
 After activating your environment, install the required dependencies from the `requirements.txt` file:
 
@@ -66,22 +66,24 @@ After activating your environment, install the required dependencies from the `r
 pip install -r requirements.txt
 ```
 
-### 3. Run the Flask Application
+#### 3. Run the Flask Application
 
 Once the dependencies are installed, you can start the Flask server by running:
 
 ```bash
-python backend.py
+python src/Controller/backend.py
+```
+or
+```bash
+python3 src/Controller/backend.py
 ```
 
 By default, Flask will run on `http://127.0.0.1:5000/`.
 
-### 4. Access the Application
+#### 4. Access the Application
 
 Open your web browser and go to [http://127.0.0.1:5000](http://127.0.0.1:5000) to access the running Flask application.
 
 ---
 
 That's it! You should now have the Flask application running locally.
-
-If you encounter any issues, feel free to reach out.
